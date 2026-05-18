@@ -7,20 +7,18 @@ public class SegmentHead : MonoBehaviour
     public List<Segment> segments = new List<Segment>();
     public List<EnemyDamage> segmentHealth = new List<EnemyDamage>();
     private List<Vector2> path = new List<Vector2>();
-    private float segmentSpacing = 4f;
-    private float moveDistForRecord = 0.1f;
+    private float segmentSpacing = 1.5f;
+    private float moveDistForRecord = 0.2f;
     private Vector2 lastRecordedPos;
     [SerializeField] private float detectionRange = 10f;
     [SerializeField] private float dashCooldown = 5f;
     [SerializeField] private int maxPathLength = 500;
     [SerializeField] private float digDistance = 5f;
     [SerializeField] private float digTime = 2f;
-    [SerializeField] private float moveSpeed = 2f;
+    [SerializeField] private float moveSpeed = 10f;
     private bool canDash = true;
     private GameObject player;
     private Transform playerTransform;
-    [SerializeField] private float dashTime = 0.75f;
-    [SerializeField] private float dashSpeed = 3f;
     private bool digging = false;
     private bool dashing = false;
     private Vector2 currentMoveDir;
@@ -58,13 +56,17 @@ public class SegmentHead : MonoBehaviour
         //---- SEGMENT FOLLOW ----
         for (int i = 0; i < segments.Count; i++)
         {
-            int pathIndex = Mathf.RoundToInt(i * segmentSpacing);
+            int pathIndex = Mathf.RoundToInt((i * segmentSpacing) / moveDistForRecord);
             segments[i].segmentPosition = i;
             if (pathIndex < path.Count)
             {
                 if (segments[i].currentOwner == this)
                 {
-                    segments[i].gameObject.transform.position = path[pathIndex];
+                    segments[i].transform.position = Vector2.Lerp(segments[i].transform.position,path[pathIndex], 15f * Time.deltaTime);
+                    if (i != 0)
+                    {
+                        segments[i].transform.rotation = Quaternion.Lerp(segments[i].transform.rotation, segments[0].transform.rotation, 15f * Time.deltaTime);
+                    }
                 }
             }
         }
@@ -103,15 +105,19 @@ public class SegmentHead : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, angle);
         currentMoveDir = dashDirection;
 
+        while (Vector2.Distance(transform.position, posToDash) >= 0.5f)
+        {
+            yield return null;
+            transform.position = Vector2.MoveTowards(transform.position, posToDash, moveSpeed * Time.deltaTime);
+        }
+
         RaycastHit2D groundRay = Physics2D.Raycast(startPos, dashDirection, 100f, LayerMask.GetMask("Ground"));
         if (groundRay)
         {
-            float t = 0;
-            while (t <= dashTime)
+            while (Vector2.Distance(transform.position, groundRay.point) >= 0.5)
             {
                 yield return null;
-                transform.position = Vector2.Lerp(startPos, groundRay.point, t / dashTime);
-                t += Time.deltaTime;
+                transform.position = Vector2.MoveTowards(transform.position, groundRay.point, moveSpeed * Time.deltaTime);
             }
             dashing = false;
         } else
@@ -139,17 +145,22 @@ public class SegmentHead : MonoBehaviour
         Vector2 startPos = transform.position;
         Vector2 targetPos = startPos + currentMoveDir * digDistance;
 
-        float t = 0; 
-        while (t <= 1)
+        while (Vector2.Distance(transform.position, targetPos) >= 0.5f)
         {
-            t += Time.deltaTime;
-            transform.position = Vector2.Lerp(startPos, targetPos, t);
+            transform.position = Vector2.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
             yield return null;
         }
 
         yield return new WaitForSeconds(digTime);
+        transform.position = new Vector2(playerTransform.position.x, transform.position.y);
         digging = false;
-        
+        if (canDash)
+        {
+            StartCoroutine(DashRoutine(playerTransform.position));
+        } else
+        {
+
+        }
     } 
 
     //---- SPLITTING LOGIC ----
