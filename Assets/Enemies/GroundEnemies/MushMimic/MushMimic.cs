@@ -8,7 +8,7 @@ public class MushMimic : MonoBehaviour, IGrowableEnemy, IEnemy
     private bool canDie = false;
     [SerializeField] private int cost;
     public bool CantGrow => cantGrow;
-    private bool cantGrow = false;
+    private bool cantGrow = true;
     private EnemyDamage damage;
     public bool IsGrown => isGrown;
     public int spiritCost => cost;
@@ -247,9 +247,11 @@ public class MushMimic : MonoBehaviour, IGrowableEnemy, IEnemy
         animator.SetTrigger("Grow");
         isGrown = true;
         hitbox.SetActive(false);
+        cantGrow = true;
         enemyRig.constraints = RigidbodyConstraints2D.FreezeAll;
         enemyDamage.enabled = false;
         yield return new WaitForSeconds(0.75f);
+        cantGrow = false;
         canDie = true;
         platform.AddComponent<BoxCollider2D>();
         collide = platform.GetComponent<BoxCollider2D>();
@@ -262,6 +264,7 @@ public class MushMimic : MonoBehaviour, IGrowableEnemy, IEnemy
         canDie = false;
         animator.SetTrigger("Die");
         Destroy(collide);
+        cantGrow = true;
         yield return new WaitForSeconds(0.4f);
         hitbox.SetActive(true);
         enemyDamage.enabled = true;
@@ -269,6 +272,7 @@ public class MushMimic : MonoBehaviour, IGrowableEnemy, IEnemy
         enemyRig.constraints = RigidbodyConstraints2D.FreezeRotation;
         yield return new WaitForSeconds(1f);
         animator.SetTrigger("dbdone");
+        cantGrow = false;
         isGrown = false;
     }
 }

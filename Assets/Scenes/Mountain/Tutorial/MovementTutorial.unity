@@ -52367,7 +52367,7 @@ Transform:
   m_GameObject: {fileID: 500585769}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -78.44, y: 72.54, z: 0}
+  m_LocalPosition: {x: -77.57, y: 72.54, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -55818,7 +55818,7 @@ Transform:
   m_GameObject: {fileID: 1019599488}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -125.94, y: 71.61, z: 0}
+  m_LocalPosition: {x: -125.82, y: 71.61, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -99895,7 +99895,7 @@ Transform:
   m_GameObject: {fileID: 1616209958}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -94.944, y: 68.593, z: 0}
+  m_LocalPosition: {x: -92.34, y: 68.593, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -99919,7 +99919,7 @@ MonoBehaviour:
   isgrown: 0
   movespeed: 0.5
   pauseTime: 3
-  movedistance: 3
+  movedistance: 1
   blowForce: 0.5
   blowSize: {x: 1, y: 3}
 --- !u!198 &1616209963
@@ -116493,6 +116493,8 @@ MonoBehaviour:
     _sceneName: Cliff
   targetSpawnID: LeftSpawn
   interactDoor: 0
+  cellingDoor: 0
+  upwardsJumpForce: 3
 --- !u!212 &1787608704
 SpriteRenderer:
   m_ObjectHideFlags: 0

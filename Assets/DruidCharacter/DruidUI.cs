@@ -173,7 +173,9 @@ public class DruidUI : MonoBehaviour, IDamageAble
         waitCycle = true;
         druidanims.SetTrigger("Death");
         druidRig.constraints = RigidbodyConstraints2D.FreezeAll;
-        yield return new WaitForSeconds(0.5f);  
+        yield return new WaitForSeconds(0.5f);
+        druidRig.constraints = RigidbodyConstraints2D.None;
+        druidRig.constraints = RigidbodyConstraints2D.FreezeRotation;
         StartCoroutine(RespawnCycle());
     }
 
@@ -217,8 +219,6 @@ public class DruidUI : MonoBehaviour, IDamageAble
 
         yield return new WaitForSeconds(0.2f);
         DruidFrameWork.canmove = true;
-        druidRig.constraints = RigidbodyConstraints2D.None;
-        druidRig.constraints = RigidbodyConstraints2D.FreezeRotation;
         waitCycle = false;
         deathScreen.SetTrigger("End");
     }

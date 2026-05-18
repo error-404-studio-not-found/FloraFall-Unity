@@ -31,11 +31,7 @@ public class SawHitbox : MonoBehaviour
                 StartCoroutine(Bounce(collision.gameObject.transform));
                 Persistence.instance.ApplyDamage(collision.gameObject, damage);
             } 
-        } else if (collision.gameObject.CompareTag("Player")) {
-
-            StartCoroutine(Bounce(collision.gameObject.transform));
-            Persistence.instance.ApplyDamageToDruid(collision.gameObject, damage);
-        }
+        } 
     }
 
     private IEnumerator Bounce(Transform hitTarget)
