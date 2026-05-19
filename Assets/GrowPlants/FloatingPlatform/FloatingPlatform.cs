@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
 
-public class FloatingFlower : MonoBehaviour, IGrowablePlant
+public class FloatingPlatform : MonoBehaviour, IGrowablePlant
 {
     [SerializeField] private int spirits = 1;
     public bool waterGrown = false;
