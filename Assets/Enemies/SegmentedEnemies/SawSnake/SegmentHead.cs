@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 
+
 public class SegmentHead : MonoBehaviour
 {
     public List<Segment> segments = new List<Segment>();
@@ -11,17 +12,18 @@ public class SegmentHead : MonoBehaviour
     private float moveDistForRecord = 0.2f;
     private Vector2 lastRecordedPos;
     [SerializeField] private float detectionRange = 10f;
+    [SerializeField] private float turnSpeed = 200f;
     [SerializeField] private float dashCooldown = 5f;
     [SerializeField] private int maxPathLength = 500;
     [SerializeField] private float digDistance = 5f;
     [SerializeField] private float digTime = 2f;
     [SerializeField] private float moveSpeed = 10f;
-    private bool canDash = true;
     private GameObject player;
+    private Rigidbody2D headRig;
     private Transform playerTransform;
     private bool digging = false;
     private bool dashing = false;
-    private Vector2 currentMoveDir;
+  
 
     private void Start()
     {
@@ -32,10 +34,46 @@ public class SegmentHead : MonoBehaviour
         lastRecordedPos = transform.position;
         path.Add(transform.position);
         player = GameObject.FindGameObjectWithTag("Player");
+        headRig = GetComponent<Rigidbody2D>();
 
         if (player != null)
         {
             playerTransform = player.GetComponent<Transform>();
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        Vector2 directionToPlayer = ((Vector2)playerTransform.position - headRig.position).normalized;
+        float rotateAmount = Vector3.Cross(transform.right, directionToPlayer).z;
+        headRig.angularVelocity = -rotateAmount * turnSpeed;
+      
+        if (!digging)
+        {
+            headRig.linearVelocity = transform.right * moveSpeed;
+        }
+
+        //---- DIG LOGIC ----
+        RaycastHit2D digRay = Physics2D.Raycast(headRig.position, transform.right, 0.1f, LayerMask.GetMask("Ground")); 
+        if (!digging && digRay && !dashing)
+        {
+            digging = true;
+        } 
+        if (digging)
+        {
+            if (playerTransform.position.y > transform.position.y)
+            {
+                if (headRig.linearVelocityY != 0)
+                {
+                    headRig.linearVelocityY -= 0.01f;
+                }
+            } else
+            {
+                if (headRig.linearVelocityY != 0)
+                {
+                    headRig.linearVelocityY -= 0.01f;
+                }
+            }
         }
     }
 
@@ -72,61 +110,17 @@ public class SegmentHead : MonoBehaviour
         }
 
         //---- BEHAVIOUR ----
-        if (Vector2.Distance(transform.position, playerTransform.position) <= detectionRange)
-        {
-            //---- DASH ----
-            if (canDash && !digging && !dashing)
-            {
-                Vector2 playerPosToDashTo = playerTransform.position;
-                StartCoroutine(DashRoutine(playerPosToDashTo));
-            }
-        }
+     
 
 
-        //---- DIG LOGIC ----
-        RaycastHit2D digRay = Physics2D.Raycast(transform.position, (Vector2)transform.position + currentMoveDir, 1, LayerMask.GetMask("Ground"));
-        if (digRay && !dashing && !digging)
-        {
-            Debug.Log("Digging");
-            StartCoroutine(Dig());
-        }
+       
+        
         //---- PATROL LOGIC ----
 
     }
 
     //---- DASH LOGIC ----
-    private IEnumerator DashRoutine(Vector2 posToDash)
-    {
-        Vector2 dashDirection = (posToDash - (Vector2)transform.position).normalized;
-        canDash = false;
-        dashing = true;
-        var startPos = transform.position;
-        float angle = Mathf.Atan2(dashDirection.y, dashDirection.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, angle);
-        currentMoveDir = dashDirection;
-
-        while (Vector2.Distance(transform.position, posToDash) >= 0.5f)
-        {
-            yield return null;
-            transform.position = Vector2.MoveTowards(transform.position, posToDash, moveSpeed * Time.deltaTime);
-        }
-
-        RaycastHit2D groundRay = Physics2D.Raycast(startPos, dashDirection, 100f, LayerMask.GetMask("Ground"));
-        if (groundRay)
-        {
-            while (Vector2.Distance(transform.position, groundRay.point) >= 0.5)
-            {
-                yield return null;
-                transform.position = Vector2.MoveTowards(transform.position, groundRay.point, moveSpeed * Time.deltaTime);
-            }
-            dashing = false;
-        } else
-        {
-            dashing = false;
-        }
-        yield return new WaitForSeconds(dashCooldown);
-        canDash = true; 
-    }
+   
 
     private void ChangeSortingOrder(int order)
     {
@@ -136,32 +130,6 @@ public class SegmentHead : MonoBehaviour
             segmentSprite.sortingOrder = order;
         }
     }
-
-    private IEnumerator Dig()
-    {
-        digging = true;
-        Debug.Log("Digging");
-        ChangeSortingOrder(-1);
-        Vector2 startPos = transform.position;
-        Vector2 targetPos = startPos + currentMoveDir * digDistance;
-
-        while (Vector2.Distance(transform.position, targetPos) >= 0.5f)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
-            yield return null;
-        }
-
-        yield return new WaitForSeconds(digTime);
-        transform.position = new Vector2(playerTransform.position.x, transform.position.y);
-        digging = false;
-        if (canDash)
-        {
-            StartCoroutine(DashRoutine(playerTransform.position));
-        } else
-        {
-
-        }
-    } 
 
     //---- SPLITTING LOGIC ----
 
@@ -193,6 +161,8 @@ public class SegmentHead : MonoBehaviour
         var headOfNewPack = segments[newHeadIndex].gameObject;
 
         var newHead = headOfNewPack.AddComponent<SegmentHead>();
+        var newRig = headOfNewPack.AddComponent<Rigidbody2D>();
+        newRig.gravityScale = 0;
         newHead.StartUpSegment();
 
         for (int i = newHeadIndex; i < segments.Count; i++)
