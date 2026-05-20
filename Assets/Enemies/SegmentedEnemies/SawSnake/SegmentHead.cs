@@ -17,15 +17,12 @@ public class SegmentHead : MonoBehaviour
     [SerializeField] private float digDistance = 5f;
     [SerializeField] private float digTime = 4f;
     [SerializeField] private float moveSpeed = 10f;
+    [SerializeField] private float heightOffset = 4f;
     private GameObject player;
-    private Rigidbody2D headRig;
     private Transform playerTransform;
-    private bool digging = false;
     private bool jumping = false;
-    private Vector2 posToJump;
     private bool canDig = true;
-    private bool canJump = false;
-    private bool stopMoving = false;
+    private bool active = false;
 
     private void Start()
     {
@@ -37,7 +34,6 @@ public class SegmentHead : MonoBehaviour
         lastRecordedPos = transform.position;
         path.Add(transform.position);
         player = GameObject.FindGameObjectWithTag("Player");
-        headRig = GetComponent<Rigidbody2D>();
 
         if (player != null)
         {
@@ -45,97 +41,60 @@ public class SegmentHead : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
-    {
-        if (!digging && !jumping)
-        {
-            Vector2 directionToPlayer = ((Vector2)playerTransform.position - headRig.position).normalized;
-            float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
-
-            headRig.rotation = Mathf.MoveTowardsAngle(headRig.rotation, angle, turnSpeed * Time.fixedDeltaTime);
-        }
-
-        if (!stopMoving)
-        {
-            headRig.linearVelocity = headRig.transform.right * moveSpeed;
-        }
-        //---- DIG LOGIC ----
-
-        if (!digging && !jumping)
-        {
-            RaycastHit2D digRay = Physics2D.Raycast(headRig.position, headRig.transform.right, 0.1f, LayerMask.GetMask("Ground"));
-            if (digRay)
-            {
-                Debug.Log("Digging");
-                digging = true;
-            }
-        }
-        if (digging && canDig)
-        {
-            StartCoroutine(Dig());
-        }
-
-        if (jumping)
-        {
-            if (Vector2.Distance(headRig.position, posToJump) < 0.5f)
-            {
-                RaycastHit2D groundRay = Physics2D.Raycast(headRig.position, transform.right, 100f, LayerMask.GetMask("Ground"));
-                Vector2 directionToPlayer = (groundRay.point - headRig.position).normalized;
-                float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
-
-                headRig.rotation = Mathf.MoveTowardsAngle(headRig.rotation, angle, turnSpeed * Time.fixedDeltaTime);
-                RaycastHit2D digRay = Physics2D.Raycast(headRig.position, headRig.transform.right, 0.1f, LayerMask.GetMask("Ground"));
-                if (digRay)
-                {
-                    jumping = false;
-                    digging = true;
-                }
-            }
-            else
-            {  
-                if (canJump)
-                {
-                    StartCoroutine(Jump());
-                }
-            }
-        }
-    }
-
     private void Update()
     {
-        if (Vector2.Distance(transform.position, lastRecordedPos) >= moveDistForRecord)
+        if (Vector2.Distance(playerTransform.position, transform.position) <= detectionRange)
         {
-            path.Insert(0, transform.position);
-            lastRecordedPos = transform.position;
-        }
-
-        //---- PERFORMANCE ----
-        if (path.Count >= maxPathLength)
-        {
-            path.RemoveAt(path.Count - 1);
-        }
-
-        //---- SEGMENT FOLLOW ----
-        for (int i = 0; i < segments.Count; i++)
-        {
-            int pathIndex = Mathf.RoundToInt((i * segmentSpacing) / moveDistForRecord);
-            segments[i].segmentPosition = i;
-            if (pathIndex < path.Count)
+            if (active != true)
             {
-                if (segments[i].currentOwner == this)
+                StartCoroutine(Jump());
+                active = true;
+            }
+        }
+        ;
+
+        if (active)
+        {
+            if (Vector2.Distance(transform.position, lastRecordedPos) >= moveDistForRecord)
+            {
+                path.Insert(0, transform.position);
+                lastRecordedPos = transform.position;
+            }
+
+            //---- PERFORMANCE ----
+            if (path.Count >= maxPathLength)
+            {
+                path.RemoveAt(path.Count - 1);
+            }
+
+            //---- SEGMENT FOLLOW ----
+            for (int i = 0; i < segments.Count; i++)
+            {
+                int pathIndex = Mathf.RoundToInt((i * segmentSpacing) / moveDistForRecord);
+                segments[i].segmentPosition = i;
+                if (pathIndex < path.Count)
                 {
-                    segments[i].transform.position = Vector2.Lerp(segments[i].transform.position, path[pathIndex], 15f * Time.deltaTime);
-                    if (i != 0)
+                    if (segments[i].currentOwner == this)
                     {
-                        segments[i].transform.rotation = Quaternion.Lerp(segments[i].transform.rotation, segments[0].transform.rotation, 15f * Time.deltaTime);
+                        segments[i].transform.position = Vector2.Lerp(segments[i].transform.position, path[pathIndex], 15f * Time.deltaTime);
+                        if (i != 0)
+                        {
+                            segments[i].transform.rotation = Quaternion.Lerp(segments[i].transform.rotation, segments[0].transform.rotation, 15f * Time.deltaTime);
+                        }
                     }
                 }
             }
+
+            //---- BEHAVIOUR ----
+            RaycastHit2D digRay = Physics2D.Raycast(transform.position, transform.right, 1f, LayerMask.GetMask("Ground"));
+            if (digRay && !canDig && !jumping)
+            {
+                Debug.Log("Digging");
+                StartCoroutine(Dig());
+            }
+
+            //---- PATROL LOGIC ----
         }
-
-        //---- BEHAVIOUR ----
-
-        //---- PATROL LOGIC ----
     }
 
     //---- DASH LOGIC ----
@@ -143,49 +102,52 @@ public class SegmentHead : MonoBehaviour
     private IEnumerator Dig()
     {
         canDig = false;
-        yield return new WaitForSeconds(1);
-        stopMoving = true;
-        headRig.linearVelocity = Vector2.zero;
-        Debug.Log(headRig.linearVelocity);
-        yield return new WaitForSeconds(digTime);
-        Vector2 directionToPlayer = ((Vector2)playerTransform.position - headRig.position).normalized;
-        float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
-        headRig.rotation = angle;
-        headRig.position = new Vector2(playerTransform.position.x, headRig.position.y);
-        stopMoving = false;
-        yield return new WaitForSeconds(1f);
-        Debug.Log("StopDig");
-        jumping = true;
-        digging = false;
-        canDig = true;
-        canJump = true;
-        posToJump = playerTransform.position;
+        Debug.Log("Digging");
+        Vector2 startPos = transform.position;
+        Vector2 targetPos = startPos + (Vector2)transform.right * digDistance;
 
+        float t = 0;
+        while (Vector2.Distance(transform.position, targetPos) >= 0.5f)
+        {
+            t += Time.deltaTime;
+            transform.position = Vector2.Lerp(startPos, targetPos, t);
+            transform.position = Vector2.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
+            yield return null;
+        }
+        transform.rotation = Quaternion.Euler(0, 0, 0);
+        yield return new WaitForSeconds(digTime);
+        canDig = true;
+        StartCoroutine(Jump());
     }
 
     private IEnumerator Jump()
     {
-        canJump = false;
-        Debug.Log("Jumping");
-        float t = 0;
-        while (t < 1f)
-        {
-            Vector2 directionToPlayer = (posToJump - headRig.position).normalized;
-            float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, 0);
+        Vector2 posToJumpTo = playerTransform.position + new Vector3(0, heightOffset, 0);
+        Vector2 startPos = transform.position;
+        jumping = true;
+        Vector2 endPos = new Vector2((2 * posToJumpTo.x) - startPos.x, startPos.y);
 
-            headRig.rotation = Mathf.MoveTowardsAngle(headRig.rotation, angle, t);
+        float totalDist = endPos.x - startPos.x;
+        while (Vector2.Distance(transform.position, endPos) >= 0.05f)
+        {
+            float xPos = Mathf.MoveTowards(transform.position.x, endPos.x, moveSpeed * Time.deltaTime);
+
+            float t = Mathf.Clamp01((xPos - startPos.x) / totalDist);
+            float yPos = startPos.y + 4 * (posToJumpTo.y - startPos.y) * t * (1 - t);
+
+            Vector2 finalPos = new Vector2(xPos, yPos);
+            Vector2 faceDirection = (finalPos - (Vector2)transform.position).normalized;
+            Quaternion angle = Quaternion.Euler(0, 0, Mathf.Atan2(faceDirection.y, faceDirection.x) * Mathf.Rad2Deg);
+
+            transform.rotation = Quaternion.Lerp(transform.rotation, angle, turnSpeed * Time.deltaTime);
+            transform.position = finalPos;
             yield return null;
-            t += Time.deltaTime;
         }
-    }
-
-    private void ChangeSortingOrder(int order)
-    {
-        for (int i = 0; i < segments.Count; i++)
-        {
-            SpriteRenderer segmentSprite = segments[i].GetComponent<SpriteRenderer>();
-            segmentSprite.sortingOrder = order;
-        }
+        Debug.Log("FinishedJump");
+        jumping = false;
+        transform.position = endPos;
+        StartCoroutine(Dig());
     }
 
     //---- SPLITTING LOGIC ----
@@ -218,8 +180,6 @@ public class SegmentHead : MonoBehaviour
         var headOfNewPack = segments[newHeadIndex].gameObject;
 
         var newHead = headOfNewPack.AddComponent<SegmentHead>();
-        var newRig = headOfNewPack.AddComponent<Rigidbody2D>();
-        newRig.gravityScale = 0;
         newHead.StartUpSegment();
 
         for (int i = newHeadIndex; i < segments.Count; i++)
