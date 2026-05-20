@@ -284,7 +284,7 @@ Transform:
   m_GameObject: {fileID: 6070886}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.04, y: -13.83, z: 0}
+  m_LocalPosition: {x: 2.04, y: -20, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8849,7 +8849,7 @@ Transform:
   m_GameObject: {fileID: 551876168}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.63, y: -13.4, z: 0}
+  m_LocalPosition: {x: -0.63, y: -19.57, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9104,7 +9104,8 @@ MonoBehaviour:
   maxPathLength: 500
   digDistance: 10
   digTime: 2
-  moveSpeed: 8
+  moveSpeed: 6
+  heightOffset: 4
 --- !u!61 &576657316
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9218,7 +9219,7 @@ Transform:
   m_GameObject: {fileID: 576657313}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.1, y: -13.21, z: 0}
+  m_LocalPosition: {x: -2.1, y: -19, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9430,7 +9431,7 @@ Transform:
   m_GameObject: {fileID: 598945085}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.6, y: -13.73, z: 0}
+  m_LocalPosition: {x: 0.6, y: -19.900002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -47669,9 +47670,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0
-    width: 1
-    height: 1
+    y: 0.027777778
+    width: 0.16666667
+    height: 0.16666666
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
