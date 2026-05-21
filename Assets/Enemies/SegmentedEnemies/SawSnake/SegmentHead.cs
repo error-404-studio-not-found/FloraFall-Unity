@@ -1,6 +1,7 @@
-using UnityEngine;
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
 
 public class SegmentHead : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class SegmentHead : MonoBehaviour
     [SerializeField] private float turnSpeed = 200f;
     [SerializeField] private float dashCooldown = 5f;
     [SerializeField] private int maxPathLength = 500;
-    [SerializeField] private float digDistance = 5f;
+    [SerializeField] private float digDistance = 4f;
     [SerializeField] private float digTime = 4f;
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float heightOffset = 4f;
@@ -23,6 +24,7 @@ public class SegmentHead : MonoBehaviour
     private bool jumping = false;
     private bool canDig = true;
     private bool active = false;
+    private float groundY;
 
     private void Start()
     {
@@ -34,7 +36,7 @@ public class SegmentHead : MonoBehaviour
         lastRecordedPos = transform.position;
         path.Add(transform.position);
         player = GameObject.FindGameObjectWithTag("Player");
-
+        groundY = transform.position.y;
         if (player != null)
         {
             playerTransform = player.GetComponent<Transform>();
@@ -86,12 +88,12 @@ public class SegmentHead : MonoBehaviour
             }
 
             //---- BEHAVIOUR ----
-            RaycastHit2D digRay = Physics2D.Raycast(transform.position, transform.right, 1f, LayerMask.GetMask("Ground"));
+            /*RaycastHit2D digRay = Physics2D.Raycast(transform.position, transform.right, 1f, LayerMask.GetMask("Ground"));
             if (digRay && !canDig && !jumping)
             {
                 Debug.Log("Digging");
                 StartCoroutine(Dig());
-            }
+            }*/
 
             //---- PATROL LOGIC ----
         }
@@ -103,37 +105,36 @@ public class SegmentHead : MonoBehaviour
     {
         canDig = false;
         Debug.Log("Digging");
+        
         Vector2 startPos = transform.position;
-        Vector2 targetPos = startPos + (Vector2)transform.right * digDistance;
-
-        float t = 0;
-        while (Vector2.Distance(transform.position, targetPos) >= 0.5f)
+        Vector2 targetPos = startPos + Vector2.right * digDistance;
+     
+        while (Vector2.Distance(transform.position, targetPos) > 0.05f)
         {
-            t += Time.deltaTime;
-            transform.position = Vector2.Lerp(startPos, targetPos, t);
             transform.position = Vector2.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
             yield return null;
         }
-        transform.rotation = Quaternion.Euler(0, 0, 0);
+        transform.rotation = Quaternion.identity;
         yield return new WaitForSeconds(digTime);
         canDig = true;
+        Debug.Log("Stopped Digging");
         StartCoroutine(Jump());
     }
 
     private IEnumerator Jump()
     {
-        transform.rotation = Quaternion.Euler(0, 0, 0);
+        transform.rotation = Quaternion.identity;
         Vector2 posToJumpTo = playerTransform.position + new Vector3(0, heightOffset, 0);
         Vector2 startPos = transform.position;
         jumping = true;
-        Vector2 endPos = new Vector2((2 * posToJumpTo.x) - startPos.x, startPos.y);
+        Vector2 endPos = new Vector2((2 * posToJumpTo.x) - startPos.x, groundY);
 
-        float totalDist = endPos.x - startPos.x;
+        float totalDist = Mathf.Abs(endPos.x - startPos.x);
         while (Vector2.Distance(transform.position, endPos) >= 0.05f)
         {
             float xPos = Mathf.MoveTowards(transform.position.x, endPos.x, moveSpeed * Time.deltaTime);
 
-            float t = Mathf.Clamp01((xPos - startPos.x) / totalDist);
+            float t = Mathf.Clamp01(Mathf.Abs((xPos - startPos.x) / totalDist));
             float yPos = startPos.y + 4 * (posToJumpTo.y - startPos.y) * t * (1 - t);
 
             Vector2 finalPos = new Vector2(xPos, yPos);
