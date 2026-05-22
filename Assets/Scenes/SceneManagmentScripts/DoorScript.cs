@@ -1,11 +1,11 @@
 using System.Collections;
 
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
 public class DoorScript : MonoBehaviour
 {
-    [Header("Target Chunk")]
     public SceneField targetChunk;
 
     private Animator fade;
@@ -14,10 +14,14 @@ public class DoorScript : MonoBehaviour
     [SerializeField] private bool interactDoor = false;
     [SerializeField] private bool cellingDoor = false;
     [SerializeField] private float upwardsJumpForce = 3f;
+    Camera cam;
+    PixelPerfectCamera ppc;
 
     private void Start()
     {
-        camFollow = Camera.main.GetComponent<FollowPlayer>();
+        cam = Camera.main;
+        camFollow = cam.GetComponent<FollowPlayer>();
+        ppc = cam.GetComponent<PixelPerfectCamera>();
         if (TransitionManager.Instance != null)
         {
             fade = TransitionManager.Instance.transitions;
@@ -69,6 +73,9 @@ public class DoorScript : MonoBehaviour
             yield return null;
 
         Transform spawnPoint = null;
+        ppc.assetsPPU = 32;
+        cam.orthographicSize = 4.5f;
+        ppc.enabled = true;
         foreach (GameObject root in targetScene.GetRootGameObjects())
         {
             spawnPoint = FindSpawnRecursively(root.transform, targetSpawnID);

@@ -7,7 +7,7 @@ using UnityEngine.Tilemaps;
 
 public class HiddenAreaReveal : MonoBehaviour
 {
-    [SerializeField] private float fadeTime = 0.75f;
+    [SerializeField] private float fadeTime = 0.5f;
     [SerializeField] private Tilemap hiddenTileMap;
     [SerializeField] private int zoomedInPPU = 40;
     private Vignette vignette;
