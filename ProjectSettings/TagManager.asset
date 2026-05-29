@@ -52,6 +52,7 @@ TagManager:
   - EPrompt
   - MossyBush
   - RobotMortar
+  - Switch
   layers:
   - Default
   - TransparentFX
