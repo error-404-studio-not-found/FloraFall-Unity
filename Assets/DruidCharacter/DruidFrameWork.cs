@@ -365,7 +365,6 @@ public class DruidFrameWork : MonoBehaviour
         druidrb.linearVelocityX = 0f;
         animator.SetTrigger("Land"); 
         druidrb.linearVelocityX = 0f;
-        animator.SetTrigger("Land");
         followPlayer.ScreenShake(0.02f, 0.5f);
         Invoke("Recover", 0.4f);
     }
@@ -383,12 +382,13 @@ public class DruidFrameWork : MonoBehaviour
     }
 
     //Call to recover from fall
-    private void Recover()
+    public void Recover()
     {
         isStunned = false;
         canjump = true;
         canmove = true;
         animator.SetTrigger("Recover");
+        Debug.Log("Druid Recovered!");
     }
 
     /* COROUTINES
