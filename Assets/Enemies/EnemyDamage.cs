@@ -3,6 +3,11 @@ using System.Collections;
 
 public class EnemyDamage : MonoBehaviour, IDamageAble
 {
+    /* ENEMYDAMAGE
+     * This script is an overarching damage controller able to be placed on anything damagable
+     * When persistence calls applydamage, it will check if it has this script and if it does then it will do damage
+     * Custom death is a bool that will not call the death animation provided in this script and will do something else instead.
+     */
     public bool dead = false;
     public bool Dead => dead;
     public float health;
@@ -12,6 +17,7 @@ public class EnemyDamage : MonoBehaviour, IDamageAble
     private DruidUI UI;
     private DruidGrowFramework growframework;
     [SerializeField] private int spiritsBack = 3;
+    [SerializeField] private BoxCollider2D toBeDestroyed = null;
     public float flashDuration = 0.3f;
     public bool customDeath = false;
     public float flashPeak = 1f;
@@ -19,6 +25,7 @@ public class EnemyDamage : MonoBehaviour, IDamageAble
     private MaterialPropertyBlock mpb;
     private Coroutine flashRoutine;
     private bool hitImmune = false;
+
 
     private void Awake()
     {
@@ -43,7 +50,6 @@ public class EnemyDamage : MonoBehaviour, IDamageAble
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!customDeath)
@@ -51,13 +57,20 @@ public class EnemyDamage : MonoBehaviour, IDamageAble
             if (health < 1 || health == 0)
             {
                 animator.SetTrigger("Death");
-                rb.linearVelocityX = 0f;
-                rb.linearVelocityY = 0f;
+                if (rb)
+                {
+                    rb.linearVelocityX = 0f;
+                    rb.linearVelocityY = 0f;
+                }
                 if (dead == false)
                 {
                     if (!DruidFrameWork.isTransformed)
                     {
                         UI.spirits += spiritsBack;
+                    }
+                    if (toBeDestroyed != null)
+                    {
+                        Destroy(toBeDestroyed);
                     }
                     dead = true;
                     StartCoroutine(growframework.RemoveTether(transform));

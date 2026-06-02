@@ -91,10 +91,10 @@ public class MortarBullet : MonoBehaviour, IGrowablePlant
         {
             if (!IsGrown)
             {
-                if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+                if (collision.gameObject.layer == LayerMask.NameToLayer("Ground") || collision.gameObject.layer == LayerMask.NameToLayer("Breakables"))
                 {
                     canGrow = false;
-                    RaycastHit2D groundCheck = Physics2D.Raycast(transform.position, Vector2.down, 1f, LayerMask.GetMask("Ground"));
+                    RaycastHit2D groundCheck = Physics2D.Raycast(transform.position, Vector2.down, 1f, LayerMask.GetMask("Ground", "Breakables"));
                     if (groundCheck)
                     {
                         Debug.Log("GroundBall");
@@ -113,7 +113,7 @@ public class MortarBullet : MonoBehaviour, IGrowablePlant
             }
             else
             {
-                if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+                if (collision.gameObject.layer == LayerMask.NameToLayer("Ground") || collision.gameObject.layer == LayerMask.NameToLayer("Breakables"))
                 {
                     canGrow = false;
                     StartCoroutine(Explode(true));

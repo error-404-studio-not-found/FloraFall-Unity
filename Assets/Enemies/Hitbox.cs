@@ -1,9 +1,12 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.Rendering;
 
 public class Hitbox : MonoBehaviour
 {
+    /* HITBOX
+     * This script will make any gameobject attached to it do damage
+     * Druid damage parameter determines if it damages the player or not
+     */
     [SerializeField] private bool druidDamaging = false;
     [SerializeField] private bool knockBack = false;
     [SerializeField] private GameObject parentObject;
@@ -26,6 +29,7 @@ public class Hitbox : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("Entered Trigger");
         if (collision.gameObject.CompareTag("Player") && druidDamaging && !druidUI.dead)
         {
             Persistence.instance.ApplyDamageToDruid(collision.gameObject, damage);
@@ -33,8 +37,11 @@ public class Hitbox : MonoBehaviour
             {
                 StartCoroutine(KnockBack());
             }
-        } else if ((collision.gameObject.layer == LayerMask.NameToLayer("GrowEnemy") || collision.gameObject.layer == LayerMask.NameToLayer("RoboticEnemy")) && !druidDamaging)
+        } else if ((collision.gameObject.layer == LayerMask.NameToLayer("GrowEnemy") 
+            || collision.gameObject.layer == LayerMask.NameToLayer("RoboticEnemy") 
+            || collision.gameObject.layer == LayerMask.NameToLayer("Breakables")) && !druidDamaging)
         {
+            Debug.Log("Hitbox Passed Layer Check!");
             if (collision.gameObject != parentObject)
             {
                 Debug.Log("Hit Enemy!");

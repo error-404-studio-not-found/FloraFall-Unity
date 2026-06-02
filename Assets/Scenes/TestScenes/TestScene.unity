@@ -249,6 +249,7 @@ MonoBehaviour:
   explosiondb: 0
   candie: 0
   druid: {fileID: 0}
+  waterGrown: 0
   shroom: {fileID: 23750237}
 --- !u!61 &23750242
 BoxCollider2D:
@@ -576,6 +577,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   glowdb: 0
   candie: 0
+  waterGrown: 0
 --- !u!95 &957766090
 Animator:
   serializedVersion: 7
@@ -706,6 +708,7 @@ MonoBehaviour:
   cannondb: 0
   bulletspawn: {fileID: 599800362}
   Bullet: {fileID: 1173336695}
+  waterGrown: 0
   bulletspeed: 4
   candie: 0
 --- !u!61 &1102474385
@@ -1135,6 +1138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deadtreeDb: 0
   candie: 0
+  waterGrown: 0
 --- !u!61 &1589305141
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1311,6 +1315,9 @@ MonoBehaviour:
   mushdb: 0
   Collide: {fileID: 515381954}
   candie: 0
+  isFake: 0
+  mushMimic: {fileID: 0}
+  waterGrown: 0
 --- !u!61 &1821954508
 BoxCollider2D:
   m_ObjectHideFlags: 0

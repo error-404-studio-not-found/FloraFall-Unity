@@ -27,7 +27,7 @@ public class RoboticMortar : MonoBehaviour, IEnemy
     [SerializeField] private float timeBetweenShots = 7f;
     [SerializeField] private Transform shotPos;
     [SerializeField] private float shotTime = 1f;
-    private bool facingLeft = true;
+    [SerializeField] private bool facingLeft = true;
     [SerializeField] private AnimationCurve arcCurve;
     void Start()
     {

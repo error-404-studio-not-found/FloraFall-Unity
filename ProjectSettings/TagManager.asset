@@ -53,6 +53,7 @@ TagManager:
   - MossyBush
   - RobotMortar
   - Switch
+  - BreakableWall
   layers:
   - Default
   - TransparentFX

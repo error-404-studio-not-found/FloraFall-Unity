@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 0cc47329ec287324aa7eb6b99d85bccd
+guid: 2256f083041394a4b85e45d49b51b47b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 377149363971847368
-    second: BearBarricade1_0
+      213: -7946863772386290884
+    second: BreakableWall_0
+  - first:
+      213: 7004609553962061265
+    second: BreakableWall_1
+  - first:
+      213: -1590110628501855903
+    second: BreakableWall_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,9 +52,9 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 32
@@ -72,7 +78,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 256
+    maxTextureSize: 64
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -100,23 +106,45 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BearBarricade1_0
+      name: BreakableWall_0
       rect:
         serializedVersion: 2
-        x: 3
+        x: 0
         y: 0
-        width: 27
-        height: 128
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 4, y: 6, z: 10, w: 8}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8c47eca2957eb3500800000000000000
-      internalID: 377149363971847368
+      spriteID: c339e78d08117b190800000000000000
+      internalID: -7946863772386290884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BreakableWall_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 4, y: 6, z: 11, w: 8}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1dd473ef64f553160800000000000000
+      internalID: 7004609553962061265
       vertices: []
       indices: 
       edges: []
@@ -125,7 +153,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: bab1d8b4d82c0da4a83c122af18c9a7e
     internalID: 0
     vertices: []
     indices: 
@@ -133,9 +161,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":32.0,"y":32.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      BearBarricade1_0: 377149363971847368
+      BreakableWall_0: -7946863772386290884
+      BreakableWall_1: 7004609553962061265
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
