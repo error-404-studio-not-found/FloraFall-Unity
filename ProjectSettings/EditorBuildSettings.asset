@@ -41,6 +41,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FloraForest/SecretPlatformingSection.unity
     guid: b5f354372c522d24cb3327fd40d4ee51
+  - enabled: 1
+    path: Assets/Scenes/Houses/ShopFloraRespite.unity
+    guid: 2884f23a2a949904dbc548b4b6ecc5a1
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
