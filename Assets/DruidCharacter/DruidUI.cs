@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -200,6 +201,12 @@ public class DruidUI : MonoBehaviour, IDamageAble
         yield return null;
 
         spawnPoint = GameObject.Find(currentRespawnPointName).transform;
+        while (spawnPoint == null)
+        {
+            spawnPoint = GameObject.Find(currentRespawnPointName).transform;
+            yield return null;
+        }
+        Debug.Log("SpawnPointFound!");
        
         druidRig.gravityScale = 1f;
         health = MaxHealth;
