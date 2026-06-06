@@ -5,15 +5,6 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/FloraForest/FloraForest1.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
-  - enabled: 0
-    path: Assets/Scenes/FloraForest/FloraForest2.unity
-    guid: e566abc5208e69c4d857c1ded033cdc9
-  - enabled: 0
-    path: Assets/Scenes/FloraForest/FloraForest3.unity
-    guid: 5e1ef5e3fa407b946a2b082f1e5c86c9
   - enabled: 1
     path: Assets/Scenes/Mountain/Tutorial/GrowTutorial.unity
     guid: 3b194e68b2fc50440be2ad71cd842d5d
