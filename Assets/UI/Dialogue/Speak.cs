@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 
 public class Speak : MonoBehaviour, IDialogue
 {
@@ -9,15 +10,26 @@ public class Speak : MonoBehaviour, IDialogue
     public bool isInteracting => interacting;
     [SerializeField] private float typingSpeed = 0.1f;
 
-    public string text = string.Empty;
+    public string[] text;
     private Image dialogueBox;
     private TextMeshProUGUI textBox;
     private Animator dialogueAnimator;
     private TextMeshProUGUI npcName;
     [SerializeField] private float rangeOfSight = 12f;
+    [SerializeField] private int reInteractIndex = 0;
+    private int startPoint = 0;
     private SpriteRenderer NPCSprite;
     private Transform NPCTransform;
-  
+    [SerializeField] private string npcRevealName;
+    [SerializeField] private int npcRevealLine;
+    [SerializeField] private bool[] choices;
+    [SerializeField] private bool shop = false;
+    [SerializeField] private string leaveText;
+    [SerializeField] private string stayText;
+    private bool choiceMade = false;
+    private int selectedChoice = 0;
+    private Button choice1Button;
+    private Button choice2Button;
 
     private Transform druidTransform;
     private Rigidbody2D druidRig;
@@ -35,6 +47,7 @@ public class Speak : MonoBehaviour, IDialogue
         NPCTransform = GetComponent<Transform>();
         NPCSprite = GetComponent<SpriteRenderer>();
 
+      
         if (player != null)
         {
             druidAnimator = player.GetComponent<Animator>();
@@ -53,6 +66,16 @@ public class Speak : MonoBehaviour, IDialogue
 
         if (npcName == null)
             npcName = GameObject.FindGameObjectWithTag("DialogueName").GetComponent<TextMeshProUGUI>();
+
+        if (choice1Button == null)
+            choice1Button = GameObject.FindGameObjectWithTag("Choice1").GetComponent<Button>();
+
+        if (choice2Button == null)
+            choice2Button = GameObject.FindGameObjectWithTag("Choice2").GetComponent<Button>();
+
+        choice1Button.onClick.AddListener(Choice1Pressed);
+        choice2Button.onClick.AddListener(Choice2Pressed);
+
     }
 
     private void Update()
@@ -83,8 +106,6 @@ public class Speak : MonoBehaviour, IDialogue
         {
             NPCSprite.flipX = false;
         }
-
-        
     }
 
     public void Interact()
@@ -94,6 +115,17 @@ public class Speak : MonoBehaviour, IDialogue
             interacting = true;
             dialogueRoutine = StartCoroutine(InteractingCoroutine());
         }
+    }
+    public void Choice1Pressed()
+    {
+        selectedChoice = 1;
+        choiceMade = true;
+    }
+
+    public void Choice2Pressed()
+    {
+        selectedChoice = 2;
+        choiceMade = true;
     }
 
     private void OnEnable()
@@ -109,43 +141,145 @@ public class Speak : MonoBehaviour, IDialogue
 
         if (npcName == null)
             npcName = GameObject.FindGameObjectWithTag("DialogueName").GetComponent<TextMeshProUGUI>();
+
+        if (choice1Button == null)
+            choice1Button = GameObject.FindGameObjectWithTag("Choice1").GetComponent<Button>();
+
+        if (choice2Button == null)
+            choice2Button = GameObject.FindGameObjectWithTag("Choice2").GetComponent<Button>();
+
+        choice1Button.onClick.AddListener(Choice1Pressed);
+        choice2Button.onClick.AddListener(Choice2Pressed);
     }
 
     private IEnumerator InteractingCoroutine()
     {
         DruidFrameWork.canjump = false;
         DruidFrameWork.canmove = false;
-        druidRig.linearVelocity = new Vector2(0, 0);
-        npcName.text = gameObject.name;
-
-        druidAnimator.SetFloat("XVelo", 0f);
-        textOn = true;
-        dialogueBox.enabled = true;
-        textBox.text = text;
-        textBox.maxVisibleCharacters = 0;
         dialogueAnimator.SetTrigger("Show");
         yield return new WaitForSeconds(0.5f);
-        druidAnimator.SetFloat("XVelo", 0f);
-        canSkip = true;
-        for (int i = 0; i < textBox.text.Length; i++)
+        for (int i = startPoint; i < text.Length; i++)
         {
-            textBox.maxVisibleCharacters += 1;
-            if (text[i] == '.' || text[i] == ',' || text[i] == '!' || text[i] == '?')
+            druidRig.linearVelocity = new Vector2(0, 0);
+            npcName.text = gameObject.name;
+
+            druidAnimator.SetFloat("XVelo", 0f);
+            textOn = true;
+            dialogueBox.enabled = true;
+            textBox.text = text[i];
+            textBox.maxVisibleCharacters = 0;
+          
+            druidAnimator.SetFloat("XVelo", 0f);
+            canSkip = true;
+            for (int j = 0; j < textBox.text.Length; j++)
             {
-                yield return new WaitForSeconds(typingSpeed + 0.5f);
+                textBox.maxVisibleCharacters += 1;
+                if (text[i][j] == '.' || text[i][j] == ',' || text[i][j] == '!' || text[i][j] == '?' || text[i][j] == '-')
+                {
+                    yield return new WaitForSeconds(typingSpeed + 0.5f);
+                }
+                else
+                {
+                    yield return new WaitForSeconds(typingSpeed);
+                }
+
+                if (skippedText == true)
+                {
+                    skippedText = false;
+                    textBox.maxVisibleCharacters = text[i].Length;
+                    break;
+                }
             }
-            else
+            if (i == npcRevealLine)
             {
-                yield return new WaitForSeconds(typingSpeed);
+                gameObject.name = npcRevealName;
+                npcName.text = gameObject.name;
             }
 
-            if (skippedText == true)
+            startPoint = reInteractIndex;
+
+            if (choices[i] == true)
             {
-                textBox.maxVisibleCharacters = text.Length;
-                break;
+                choice1Button.enabled = true;
+                choice2Button.enabled = true;
+                choice1Button.gameObject.GetComponent<Image>().enabled = true;
+                choice2Button.gameObject.GetComponent<Image>().enabled = true;
+                GameObject.FindGameObjectWithTag("Choice1Text").GetComponent<TextMeshProUGUI>().enabled = true;
+                GameObject.FindGameObjectWithTag("Choice2Text").GetComponent<TextMeshProUGUI>().enabled = true;
+                yield return new WaitUntil(() => choiceMade);
+                choiceMade = false;
+                choice1Button.enabled = false;
+                choice2Button.enabled = false;
+                choice1Button.gameObject.GetComponent<Image>().enabled = false;
+                choice2Button.gameObject.GetComponent<Image>().enabled = false;
+                GameObject.FindGameObjectWithTag("Choice1Text").GetComponent<TextMeshProUGUI>().enabled = false;
+                GameObject.FindGameObjectWithTag("Choice2Text").GetComponent<TextMeshProUGUI>().enabled = false;
+
+                if (selectedChoice == 1)
+                {
+                    if (shop)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        textBox.maxVisibleCharacters = 0;
+                        textBox.text = stayText;
+                        for (int j = 0; j < stayText.Length; j++)
+                        {
+                            textBox.maxVisibleCharacters += 1;
+                            if (stayText[j] == '.' || stayText[j] == ',' || stayText[j] == '!' || stayText[j] == '?' || stayText[j] == '-')
+                            {
+                                yield return new WaitForSeconds(typingSpeed + 0.5f);
+                            }
+                            else
+                            {
+                                yield return new WaitForSeconds(typingSpeed);
+                            }
+
+                            if (skippedText == true)
+                            {
+                                skippedText = false;
+                                textBox.maxVisibleCharacters = stayText.Length;
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+                else if (selectedChoice == 2) 
+                {
+                    textBox.maxVisibleCharacters = 0;
+                    textBox.text = leaveText;
+                    for (int j = 0; j < leaveText.Length; j++)
+                    {
+                        textBox.maxVisibleCharacters += 1;
+                        if (leaveText[j] == '.' || leaveText[j] == ',' || leaveText[j] == '!' || leaveText[j] == '?' || leaveText[j] == '-')
+                        {
+                            yield return new WaitForSeconds(typingSpeed + 0.5f);
+                        }
+                        else
+                        {
+                            yield return new WaitForSeconds(typingSpeed);
+                        }
+
+                        if (skippedText == true)
+                        {
+                            skippedText = false;
+                            textBox.maxVisibleCharacters = leaveText.Length;
+                            break;
+                        }
+                       
+                    }
+                    break;
+                }
             }
+            selectedChoice = 0;
+            yield return new WaitForSeconds(2.5f);
+            
+            textBox.maxVisibleCharacters = 0;
         }
-
+       
         DruidFrameWork.canjump = true;
         DruidFrameWork.canmove = true;
         textOn = false;

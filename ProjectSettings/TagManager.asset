@@ -54,6 +54,10 @@ TagManager:
   - RobotMortar
   - Switch
   - BreakableWall
+  - Choice1
+  - Choice2
+  - Choice1Text
+  - Choice2Text
   layers:
   - Default
   - TransparentFX
