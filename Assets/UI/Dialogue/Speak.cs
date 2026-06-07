@@ -273,27 +273,26 @@ public class Speak : MonoBehaviour, IDialogue
                     }
                     break;
                 }
+            
             }
             selectedChoice = 0;
-            yield return new WaitForSeconds(2.5f);
-            
+            yield return new WaitForSeconds(1.5f);
+
             textBox.maxVisibleCharacters = 0;
         }
-       
+        selectedChoice = 0;
         DruidFrameWork.canjump = true;
         DruidFrameWork.canmove = true;
         textOn = false;
         yield return new WaitForSeconds(0.1f);
         skippedText = false;
-        yield return new WaitForSeconds(0.9f);
+      
         textBox.text = "";
         npcName.text = "";
         dialogueAnimator.SetTrigger("Leave");
-        canSkip = false;
         yield return new WaitForSeconds(1f);
-        textBox.maxVisibleCharacters = 0;
+        canSkip = false;
         dialogueBox.enabled = false;
-        yield return new WaitForSeconds(1.5f);
         interacting = false;
     }
 
@@ -313,10 +312,6 @@ public class Speak : MonoBehaviour, IDialogue
     private void ResetDialogue()
     {
         Debug.Log("Dialogue Reset!");
-        if (dialogueAnimator != null)
-        {
-            dialogueAnimator.SetTrigger("Leave");
-        }
         interacting = false;
 
         if (textBox != null)

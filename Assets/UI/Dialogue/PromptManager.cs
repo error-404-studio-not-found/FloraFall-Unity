@@ -49,8 +49,11 @@ public class PromptManager : MonoBehaviour
                     DoorScript doorScript = promptCheck.gameObject.GetComponent<DoorScript>();
                     if (doorScript != null)
                     {
-                        Collider2D playerCollider = druidTransform.gameObject.GetComponent<Collider2D>();
-                       doorScript.TeleportPlayer(playerCollider);
+                        if (!DruidFrameWork.Transitioning)
+                        {
+                            Collider2D playerCollider = druidTransform.gameObject.GetComponent<Collider2D>();
+                            doorScript.TeleportPlayer(playerCollider);
+                        }
                     }
 
                 }

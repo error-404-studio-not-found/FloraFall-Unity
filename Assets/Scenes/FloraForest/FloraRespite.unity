@@ -6655,22 +6655,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Speak
   typingSpeed: 0.1
   text:
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Snail's Den, East.
   rangeOfSight: 0
   reInteractIndex: 0
-  npcRevealName: 
+  npcRevealName: Sign
   npcRevealLine: 0
-  choices: 
+  choices: 00
   shop: 0
   leaveText: 
   stayText: 
@@ -11692,56 +11682,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Speak
   typingSpeed: 0.1
   text:
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Church, West.
+  - Flora's Respite, East.
   rangeOfSight: 0
   reInteractIndex: 0
-  npcRevealName: 
+  npcRevealName: Sign
   npcRevealLine: 0
-  choices: 
+  choices: 0000
   shop: 0
   leaveText: 
   stayText: 
@@ -58676,62 +58623,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Speak
   typingSpeed: 0.1
   text:
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - ...
   rangeOfSight: 12
   reInteractIndex: 0
-  npcRevealName: 
+  npcRevealName: Spirit
   npcRevealLine: 0
-  choices: 
+  choices: 00
   shop: 0
   leaveText: 
   stayText: 
