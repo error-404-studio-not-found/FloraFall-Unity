@@ -169,12 +169,17 @@ public class DruidUI : MonoBehaviour, IDamageAble
     private IEnumerator DeathScreenCycle()
     {
         druidRig.linearVelocityX = 0f;
-        deathScreen.SetTrigger("Start");
+      
         health = 0;
         waitCycle = true;
         druidanims.SetTrigger("Death");
+        followPlayer.ScreenShake(0.02f, 1.03f);
         druidRig.constraints = RigidbodyConstraints2D.FreezeAll;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.03f);
+        followPlayer.ScreenShake(0.025f, 0.5f);
+        yield return new WaitForSeconds(0.05f);
+        deathScreen.SetTrigger("Start");
+        yield return new WaitForSeconds(0.2f);
         druidRig.constraints = RigidbodyConstraints2D.None;
         druidRig.constraints = RigidbodyConstraints2D.FreezeRotation;
         StartCoroutine(RespawnCycle());
@@ -192,7 +197,7 @@ public class DruidUI : MonoBehaviour, IDamageAble
         druid.transform.position = Vector2.zero;
         druidRig.linearVelocityX = 0f;
         Scene currentScene = SceneManager.GetActiveScene();
-        druidanims.SetTrigger("Respawn");
+       
 
         ChunkLoader.Instance.EnterChunk(spawnSceneName);
 
@@ -210,8 +215,8 @@ public class DruidUI : MonoBehaviour, IDamageAble
        
         druidRig.gravityScale = 1f;
         health = MaxHealth;
-        dead = false;
-        hitImmune = false;
+        
+       
         spirits = maxSpirits;
         druidanims.SetFloat("XVelo", 0);
       
@@ -223,10 +228,18 @@ public class DruidUI : MonoBehaviour, IDamageAble
         {
             Debug.LogWarning("No spawnPoint found in scene!");
         }
-
-        yield return new WaitForSeconds(0.2f);
-        DruidFrameWork.canmove = true;
-        waitCycle = false;
+        druidRig.constraints = RigidbodyConstraints2D.FreezePositionX;
         deathScreen.SetTrigger("End");
+        yield return new WaitForSeconds(0.8f);
+        druidRig.constraints = RigidbodyConstraints2D.FreezePositionY;
+        druidanims.SetTrigger("Respawn");
+      
+        yield return new WaitForSeconds(1.3f);
+        waitCycle = false;
+        druidRig.constraints = RigidbodyConstraints2D.None;
+        druidRig.constraints = RigidbodyConstraints2D.FreezeRotation;
+        DruidFrameWork.canmove = true;
+        dead = false;
+        hitImmune = false;
     }
 }
