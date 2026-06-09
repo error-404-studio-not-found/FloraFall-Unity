@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Rendering.Universal;
 
 public class DruidUI : MonoBehaviour, IDamageAble
 {
@@ -17,6 +18,7 @@ public class DruidUI : MonoBehaviour, IDamageAble
     public Image circleWipe;
     private Transform spawnPoint; //current spawnpoint;
     public string currentRespawnPointName;
+    private PixelPerfectCamera ppc;
     public float health = 5;
     public float MaxHealth = 5;
     private float previousHealth;
@@ -53,6 +55,7 @@ public class DruidUI : MonoBehaviour, IDamageAble
         druidRig = GetComponent<Rigidbody2D>();
         previousHealth = health;
         followPlayer = Camera.main.GetComponent<FollowPlayer>();
+        ppc = Camera.main.GetComponent<PixelPerfectCamera>();
     }
 
     private void Update()
@@ -233,7 +236,7 @@ public class DruidUI : MonoBehaviour, IDamageAble
         yield return new WaitForSeconds(0.8f);
         druidRig.constraints = RigidbodyConstraints2D.FreezePositionY;
         druidanims.SetTrigger("Respawn");
-      
+        ppc.enabled = true;
         yield return new WaitForSeconds(1.3f);
         waitCycle = false;
         druidRig.constraints = RigidbodyConstraints2D.None;

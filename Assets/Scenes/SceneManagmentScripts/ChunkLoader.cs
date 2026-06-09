@@ -13,10 +13,10 @@ public class ChunkLoader : MonoBehaviour
     public static ChunkLoader Instance { get; private set; }
 
     private string currentChunk;
-    Camera cam;
+    private Camera cam;
     private FollowPlayer camFollow;
     private Animator fade;
-    PixelPerfectCamera ppc;
+    private PixelPerfectCamera ppc;
 
     /* AWAKE
      * Handles persistence
@@ -166,10 +166,12 @@ public class ChunkLoader : MonoBehaviour
     private IEnumerator SpawnRoutine()
     {
         yield return new WaitForSeconds(0.75f);
+        ppc.assetsPPU = 32;
+        cam.orthographicSize = 4.5f;
+        ppc.enabled = true;
         Debug.Log("FinishedSpawnm");
         DruidFrameWork.Transitioning = false;
         DruidFrameWork.canmove = true;
-
     }
 
     private Transform FindSpawnRecursively(Transform parent, string name)
