@@ -1,19 +1,28 @@
 fileFormatVersion: 2
-guid: e5298c8afa7156a4a96aac93137d5270
+guid: 82e5c32bda8bfdf4ba69e3311fe7fb73
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7722285225371539907
-    second: FloatingPlatform_0
+      213: -3858009257172990402
+    second: FloatingFlowerFlowerSheet_0
   - first:
-      213: -8012720821829076355
-    second: FloatingPlatform_1
+      213: 525667523527514292
+    second: FloatingFlowerFlowerSheet_1
   - first:
-      213: -1927637273051925026
-    second: FloatingPlatform_2
+      213: -4475282831820091644
+    second: FloatingFlowerFlowerSheet_2
   - first:
-      213: 8779033518661836340
-    second: FloatingPlatform_3
+      213: 6236527348766632112
+    second: FloatingFlowerFlowerSheet_3
+  - first:
+      213: -6248901775995839698
+    second: FloatingFlowerFlowerSheet_4
+  - first:
+      213: 3728072153432552675
+    second: FloatingFlowerFlowerSheet_5
+  - first:
+      213: -4813717969412394462
+    second: FloatingFlowerFlowerSheet_6
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -81,7 +90,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 256
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -109,12 +118,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: FloatingPlatform_0
+      name: FloatingFlowerFlowerSheet_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 48
+        width: 64
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -124,19 +133,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3c994808f711b2b60800000000000000
-      internalID: 7722285225371539907
+      spriteID: e36090e6509957ac0800000000000000
+      internalID: -3858009257172990402
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloatingPlatform_1
+      name: FloatingFlowerFlowerSheet_1
       rect:
         serializedVersion: 2
-        x: 48
+        x: 64
         y: 0
-        width: 48
+        width: 64
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -146,19 +155,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d7a7082add81dc090800000000000000
-      internalID: -8012720821829076355
+      spriteID: 4b811d9d3db8b4700800000000000000
+      internalID: 525667523527514292
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloatingPlatform_2
+      name: FloatingFlowerFlowerSheet_2
       rect:
         serializedVersion: 2
-        x: 96
+        x: 128
         y: 0
-        width: 48
+        width: 64
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -168,41 +177,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ed5ffebfc18af35e0800000000000000
-      internalID: -1927637273051925026
+      spriteID: 40f85fbb9f994e1c0800000000000000
+      internalID: -4475282831820091644
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloatingPlatform_3
-      rect:
-        serializedVersion: 2
-        x: 144
-        y: 0
-        width: 48
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 43e161fc87465d970800000000000000
-      internalID: 8779033518661836340
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FloatingPlatform_4
+      name: FloatingFlowerFlowerSheet_3
       rect:
         serializedVersion: 2
         x: 192
         y: 0
-        width: 48
+        width: 64
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -210,10 +197,76 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 091869578e046ee488b56cda75a30f7d
-      internalID: 1908664007
+      spriteID: 0b86e37c4989c8650800000000000000
+      internalID: 6236527348766632112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FloatingFlowerFlowerSheet_4
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 64
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2bd57d51f07749a0800000000000000
+      internalID: -6248901775995839698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FloatingFlowerFlowerSheet_5
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 64
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e47f521fd5ccb330800000000000000
+      internalID: 3728072153432552675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FloatingFlowerFlowerSheet_6
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 64
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2227240d20d323db0800000000000000
+      internalID: -4813717969412394462
       vertices: []
       indices: 
       edges: []
@@ -222,7 +275,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: fbe6189c2621bd24db77818ea7263bc1
+    spriteID: d0a7379b1680aec44b2031d620f9d07a
     internalID: 0
     vertices: []
     indices: 
@@ -232,13 +285,15 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":48.0,"y":32.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":32.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      FloatingPlatform_0: 7722285225371539907
-      FloatingPlatform_1: -8012720821829076355
-      FloatingPlatform_2: -1927637273051925026
-      FloatingPlatform_3: 8779033518661836340
-      FloatingPlatform_4: 1908664007
+      FloatingFlowerFlowerSheet_0: -3858009257172990402
+      FloatingFlowerFlowerSheet_1: 525667523527514292
+      FloatingFlowerFlowerSheet_2: -4475282831820091644
+      FloatingFlowerFlowerSheet_3: 6236527348766632112
+      FloatingFlowerFlowerSheet_4: -6248901775995839698
+      FloatingFlowerFlowerSheet_5: 3728072153432552675
+      FloatingFlowerFlowerSheet_6: -4813717969412394462
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

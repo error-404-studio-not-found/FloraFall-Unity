@@ -36,11 +36,10 @@ public class DruidUI : MonoBehaviour, IDamageAble
     private Coroutine flashRoutine;
     private DruidFrameWork frameWork;
 
-    FollowPlayer followPlayer;
+    private FollowPlayer followPlayer;
 
     [SerializeField] private float flashDuration = 0.3f;
     [SerializeField] private float flashPeak = 1f;
-
 
     public bool Dead => dead;
 
@@ -172,7 +171,7 @@ public class DruidUI : MonoBehaviour, IDamageAble
     private IEnumerator DeathScreenCycle()
     {
         druidRig.linearVelocityX = 0f;
-      
+
         health = 0;
         waitCycle = true;
         druidanims.SetTrigger("Death");
@@ -200,7 +199,6 @@ public class DruidUI : MonoBehaviour, IDamageAble
         druid.transform.position = Vector2.zero;
         druidRig.linearVelocityX = 0f;
         Scene currentScene = SceneManager.GetActiveScene();
-       
 
         ChunkLoader.Instance.EnterChunk(spawnSceneName);
 
@@ -215,14 +213,13 @@ public class DruidUI : MonoBehaviour, IDamageAble
             yield return null;
         }
         Debug.Log("SpawnPointFound!");
-       
+
         druidRig.gravityScale = 1f;
         health = MaxHealth;
-        
-       
+
         spirits = maxSpirits;
         druidanims.SetFloat("XVelo", 0);
-      
+
         if (spawnPoint != null)
         {
             druid.transform.position = spawnPoint.position;
@@ -237,6 +234,8 @@ public class DruidUI : MonoBehaviour, IDamageAble
         druidRig.constraints = RigidbodyConstraints2D.FreezePositionY;
         druidanims.SetTrigger("Respawn");
         ppc.enabled = true;
+        ppc.assetsPPU = 32;
+        Camera.main.orthographicSize = 4.5f;
         yield return new WaitForSeconds(1.3f);
         waitCycle = false;
         druidRig.constraints = RigidbodyConstraints2D.None;

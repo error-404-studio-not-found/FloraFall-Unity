@@ -1,17 +1,17 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
 
-public class FloatingPlatform : MonoBehaviour, IGrowablePlant
+public class FloatingFlower : MonoBehaviour, IGrowablePlant
 {
     [SerializeField] private int spirits = 1;
     public bool waterGrown = false;
     public bool WaterGrown => waterGrown;
+
     public void setWaterGrow(bool value)
     {
         waterGrown = value;
     }
+
     private bool canGrow = true;
     public bool CanGrow => canGrow;
     private bool flowerDB = false;
@@ -21,13 +21,15 @@ public class FloatingPlatform : MonoBehaviour, IGrowablePlant
     public bool CanDie => canDie;
     public bool IsGrown => flowerDB;
     [SerializeField] private GameObject flowerPlatform;
+    private Animator flowerPlatformAnimator;
     [SerializeField] private float floatTime = 3f;
     [SerializeField] private float propellTime = 0.75f;
     [SerializeField] private float height = 6f;
     [SerializeField] private AnimationCurve curve;
-    void Start()
+
+    private void Start()
     {
-        
+        flowerPlatformAnimator = flowerPlatform.GetComponent<Animator>();
     }
 
     public void Grow()
@@ -51,12 +53,13 @@ public class FloatingPlatform : MonoBehaviour, IGrowablePlant
             }
         }
     }
-    
+
     private IEnumerator GrowCycle()
     {
         flowerDB = true;
         canGrow = false;
         float t = 0;
+        flowerPlatformAnimator.SetTrigger("Blow");
         var startPos = flowerPlatform.transform.position;
         while (t <= propellTime)
         {
@@ -64,7 +67,6 @@ public class FloatingPlatform : MonoBehaviour, IGrowablePlant
             float heightOffset = curve.Evaluate(t / propellTime) * height;
             flowerPlatform.transform.position = startPos + new Vector3(0, heightOffset, 0);
             t += Time.deltaTime;
-
         }
         flowerPlatform.transform.position = new Vector3(startPos.x, startPos.y + height, startPos.z);
         canGrow = true;
@@ -76,14 +78,15 @@ public class FloatingPlatform : MonoBehaviour, IGrowablePlant
         flowerDB = false;
         canGrow = false;
         float t = 0;
+        flowerPlatformAnimator.SetTrigger("Spin");
         var startPos = flowerPlatform.transform.position;
         while (t <= floatTime)
         {
-        
             yield return null;
             flowerPlatform.transform.position = Vector2.Lerp(startPos, new Vector2(startPos.x, startPos.y - height), t / floatTime);
             t += Time.deltaTime;
         }
+        flowerPlatformAnimator.SetTrigger("Stop");
         yield return new WaitForSeconds(1f);
         canGrow = true;
         canDie = false;
