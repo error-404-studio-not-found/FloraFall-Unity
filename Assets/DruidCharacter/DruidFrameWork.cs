@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 public class DruidFrameWork : MonoBehaviour
 {
@@ -25,7 +26,7 @@ public class DruidFrameWork : MonoBehaviour
     private SpriteRenderer druidspriterender;
     private BoxCollider2D boxcollider;
     private float speedx;
-    
+
     public float druidspeed;
     public static bool canjump = true;
     public static bool canmove = true;
@@ -61,7 +62,7 @@ public class DruidFrameWork : MonoBehaviour
     [SerializeField] private float stunHeight = 9;
     [SerializeField] private float maximumYVelocity = -10f;
 
-    FollowPlayer followPlayer;
+    private FollowPlayer followPlayer;
 
     // ---- VOID CHECK ----
     public Vector2 lastGroundPosition = Vector2.zero;
@@ -132,7 +133,8 @@ public class DruidFrameWork : MonoBehaviour
                 if (!isGrounded)
                 {
                     animator.SetFloat("YVelo", druidrb.linearVelocityY);
-                } else animator.SetFloat("YVelo", 0);
+                }
+                else animator.SetFloat("YVelo", 0);
 
                 if (!isAttacking) //checks if not attacking
                 {
@@ -206,7 +208,7 @@ public class DruidFrameWork : MonoBehaviour
                 {
                     if (groundTag.collider.gameObject.CompareTag("Grass"))
                     {
-                        fallMain.startColor = new Color(20f / 255f, 77f / 255f, 1f /255f, 1f);
+                        fallMain.startColor = new Color(20f / 255f, 77f / 255f, 1f / 255f, 1f);
                         walkMain.startColor = new Color(20f / 255f, 77f / 255f, 1f / 255f, 1f);
                     }
                     else if (groundTag.collider.gameObject.CompareTag("Snow"))
@@ -228,7 +230,6 @@ public class DruidFrameWork : MonoBehaviour
 
     private void Update()
     {
-  
         if (!UI.dead && !inCutscene)
         {
             if (canmove && !isStunned)
@@ -245,13 +246,14 @@ public class DruidFrameWork : MonoBehaviour
                     jumpBufferCounter -= Time.deltaTime;
                 }
 
-                if (druidrb.linearVelocityY > 0.1f)
+                if (!isGrounded && druidrb.linearVelocityY > 0.1f)
                 {
                     jumpBufferCounter = 0f;
                 }
 
                 if (jumpBufferCounter > 0f && coyoteTimeCounter > 0f && !isAttacking && !istransforming && !hasJumped)
                 {
+                    Debug.Log("JUMP!");
                     druidrb.linearVelocityY = jumpheight;
                     isJumping = true;
                     hasJumped = true;
@@ -259,6 +261,7 @@ public class DruidFrameWork : MonoBehaviour
                 }
 
                 // ---- VARIABLE JUMP HEIGHT ----
+
                 if (Input.GetKeyUp(KeyCode.Space) && isJumping)
                 {
                     if (druidrb.linearVelocityY > 0f)
@@ -269,7 +272,7 @@ public class DruidFrameWork : MonoBehaviour
                 }
 
                 // ---- RESET ON LAND ----
-                if (isGrounded && druidrb.linearVelocityY <= 0.1f)
+                if (isGrounded)
                 {
                     if (impactSpeed >= stunHeight && !wasGroundedLastFrame)
                     {
@@ -286,6 +289,7 @@ public class DruidFrameWork : MonoBehaviour
                 }
                 else
                 {
+                    Debug.Log("Reset JumpOnGround");
                     coyoteTimeCounter -= Time.deltaTime;
                     canjump = false;
                 }
@@ -369,7 +373,7 @@ public class DruidFrameWork : MonoBehaviour
         canjump = false;
         canmove = false;
         druidrb.linearVelocityX = 0f;
-        animator.SetTrigger("Land"); 
+        animator.SetTrigger("Land");
         druidrb.linearVelocityX = 0f;
         followPlayer.ScreenShake(0.02f, 0.5f);
         Invoke("Recover", 0.4f);

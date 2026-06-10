@@ -25,6 +25,7 @@ public class FloatingFlower1 : MonoBehaviour, IGrowablePlant
     [SerializeField] private float propellTime = 0.75f;
     [SerializeField] private float height = 6f;
     [SerializeField] private AnimationCurve curve;
+    [SerializeField] private AnimationCurve floatCurve;
     BoxCollider2D flowerCollider;
     Rigidbody2D flowerRig;
     Animator baseAnimtor;
@@ -67,7 +68,8 @@ public class FloatingFlower1 : MonoBehaviour, IGrowablePlant
         } else if (down)
         {
             t += Time.fixedDeltaTime;
-            Vector3 targetPos = Vector2.Lerp(startPos, new Vector2(startPos.x, startPos.y - height), t / floatTime);
+            float heightOffset = floatCurve.Evaluate(t / floatTime) * height;
+            Vector3 targetPos = startPos + Vector3.down * heightOffset;
             flowerRig.MovePosition(targetPos);
             if (t >= floatTime)
             {
