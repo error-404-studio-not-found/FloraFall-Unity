@@ -58,6 +58,7 @@ TagManager:
   - Choice2
   - Choice1Text
   - Choice2Text
+  - FloatingFlower
   layers:
   - Default
   - TransparentFX

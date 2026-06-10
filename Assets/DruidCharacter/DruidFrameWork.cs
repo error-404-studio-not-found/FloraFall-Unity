@@ -129,7 +129,10 @@ public class DruidFrameWork : MonoBehaviour
             if (canmove && !isStunned)
             {
                 // ---- WALKING ----
-                animator.SetFloat("YVelo", druidrb.linearVelocityY);
+                if (!isGrounded)
+                {
+                    animator.SetFloat("YVelo", druidrb.linearVelocityY);
+                } else animator.SetFloat("YVelo", 0);
 
                 if (!isAttacking) //checks if not attacking
                 {
@@ -173,9 +176,12 @@ public class DruidFrameWork : MonoBehaviour
                 }
 
                 // ---- JUMP ANIMATIONS ----
-                if (druidrb.linearVelocityY > 0.5f)
+                if (!isGrounded)
                 {
-                    animator.SetTrigger("Jump");
+                    if (druidrb.linearVelocityY > 0.5f)
+                    {
+                        animator.SetTrigger("Jump");
+                    }
                 }
 
                 // ---- GROUND CHECK ----

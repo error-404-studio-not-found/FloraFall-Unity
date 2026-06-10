@@ -67,7 +67,7 @@ public class DruidLedgeClimb : MonoBehaviour
 
         RaycastHit2D topHit = Physics2D.BoxCast((Vector2)druidTransform.position + offset + horizontalOffset, climbSize, 0f, new Vector2(direction, 0f), ledgeClimbDistance, LayerMask.GetMask("Ground"));
 
-        if (topHit.collider == null && bottomHit.collider != null && cellingCheck.collider == null)
+        if (topHit.collider == null && bottomHit.collider != null && cellingCheck.collider == null && bottomHit.collider.tag != "NoLedgeClimb")
         {
             isMantled = true;
             DruidFrameWork.canmove = false;
