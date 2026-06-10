@@ -59,6 +59,7 @@ TagManager:
   - Choice1Text
   - Choice2Text
   - FloatingFlower
+  - NoLedgeClimb
   layers:
   - Default
   - TransparentFX
