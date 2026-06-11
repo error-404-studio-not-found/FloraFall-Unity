@@ -154,6 +154,7 @@ public class DruidLedgeClimb : MonoBehaviour
         druidAnimator.SetBool("IsMantling", false);
         DruidFrameWork.canjump = true;
         DruidFrameWork.canmove = true;
+        druidFrameWork.gravityjump = true;
         isMantled = false;
         float t = 0;
         while (t <= 0.25f)

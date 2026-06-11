@@ -44,7 +44,7 @@ public class DruidFrameWork : MonoBehaviour
 
     private bool isJumping;
     public bool isGrounded;
-    private bool gravityjump = false;
+    public bool gravityjump = false;
     private float jumpheight = 7.5f;
     private bool hasJumped = false;
     private bool wasGroundedLastFrame = false;
