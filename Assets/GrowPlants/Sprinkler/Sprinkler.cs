@@ -99,7 +99,13 @@ public class Sprinkler : MonoBehaviour, IGrowablePlant
     {
         foreach (var plant in plantsGrown)
         {
+            
             plant.GetComponent<IGrowablePlant>().setWaterGrow(false);
+            var plantGrow = plant.GetComponent<IGrowablePlant>();
+            while (!plantGrow.CanGrow)
+            {
+                yield return null;
+            }
             DGF.DeGrowPlant(plant);
         }
 
