@@ -30,11 +30,13 @@ public class DruidUI : MonoBehaviour, IDamageAble
     private Animator druidanims;
     private Rigidbody2D druidRig;
     public bool hitImmune = false;
+    [SerializeField] private GameObject innerSpirit;
 
     private SpriteRenderer spriterenderer;
     private MaterialPropertyBlock mpb;
     private Coroutine flashRoutine;
     private DruidFrameWork frameWork;
+    private CurrencyManager currencyManager;
 
     private FollowPlayer followPlayer;
 
@@ -45,6 +47,7 @@ public class DruidUI : MonoBehaviour, IDamageAble
 
     private void Start()
     {
+        currencyManager = GameObject.FindGameObjectWithTag("NutText").GetComponent<CurrencyManager>();
         spriterenderer = gameObject.GetComponent<SpriteRenderer>();
         spriterenderer.material = new Material(spriterenderer.material);
         frameWork = GetComponent<DruidFrameWork>();
@@ -182,6 +185,10 @@ public class DruidUI : MonoBehaviour, IDamageAble
         yield return new WaitForSeconds(0.05f);
         deathScreen.SetTrigger("Start");
         yield return new WaitForSeconds(0.2f);
+        innerSpirit.SetActive(true);
+        innerSpirit.transform.position = druid.transform.position;
+        InnerSpirit.storedBolts = currencyManager.nuts;
+        currencyManager.nuts = 0;
         druidRig.constraints = RigidbodyConstraints2D.None;
         druidRig.constraints = RigidbodyConstraints2D.FreezeRotation;
         StartCoroutine(RespawnCycle());

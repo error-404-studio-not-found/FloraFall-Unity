@@ -14825,7 +14825,7 @@ MonoBehaviour:
     _sceneName: SprinklerIntroScene
   targetSpawnID: BottomLeftSpawn
   interactDoor: 0
-  cellingDoor: 1
+  cellingDoor: 0
   upwardsJumpForce: 3
 --- !u!212 &1067434701
 SpriteRenderer:

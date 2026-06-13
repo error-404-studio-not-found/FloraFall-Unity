@@ -60,6 +60,7 @@ TagManager:
   - Choice2Text
   - FloatingFlower
   - NoLedgeClimb
+  - VineCrawler
   layers:
   - Default
   - TransparentFX

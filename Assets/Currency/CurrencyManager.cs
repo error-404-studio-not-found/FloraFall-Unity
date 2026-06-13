@@ -7,6 +7,7 @@ public class CurrencyManager : MonoBehaviour
     public int nuts = 0;
     private TextMeshProUGUI nutText;
 
+
     private void Start()
     {
         nutText = GetComponent<TextMeshProUGUI>();
