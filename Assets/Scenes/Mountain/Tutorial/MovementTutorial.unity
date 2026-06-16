@@ -8140,8 +8140,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Speak
   typingSpeed: 0.1
-  text: Root Caverns, Southwest.
+  text: []
   rangeOfSight: 0
+  reInteractIndex: 0
+  npcRevealName: 
+  npcRevealLine: 0
+  choices: 
+  shop: 0
+  leaveText: 
+  stayText: 
 --- !u!212 &89585857
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8462,16 +8469,8 @@ CompositeCollider2D:
         Y: 690625024
       - X: -1090312448
         Y: 758750016
-      - X: -1199687552
-        Y: 758750016
-      - X: -1199687552
-        Y: 750000000
-      - X: -1190000000
-        Y: 750000000
-      - X: -1190000000
-        Y: 748750016
       - X: -1209687552
-        Y: 748750016
+        Y: 758750016
       - X: -1209687552
         Y: 740000000
       - X: -1200000000
@@ -8750,6 +8749,10 @@ CompositeCollider2D:
         Y: 710625024
   m_CompositePaths:
     m_Paths:
+    - - {x: -139.03127, y: 91.0625}
+      - {x: -139.03127, y: 94}
+      - {x: -143.96875, y: 93.99997}
+      - {x: -143.96873, y: 91.0625}
     - - {x: -143.03127, y: 80.0625}
       - {x: -143.03122, y: 82}
       - {x: -143, y: 82.00003}
@@ -8798,18 +8801,6 @@ CompositeCollider2D:
       - {x: -146.99997, y: 81}
       - {x: -146.96875, y: 80.99997}
       - {x: -146.96873, y: 80.0625}
-    - - {x: -139.03127, y: 91.0625}
-      - {x: -139.03127, y: 94}
-      - {x: -143.96875, y: 93.99997}
-      - {x: -143.96873, y: 91.0625}
-    - - {x: -71.03128, y: 78.0625}
-      - {x: -71.03122, y: 82}
-      - {x: -71, y: 82.00003}
-      - {x: -70.99997, y: 82.0625}
-      - {x: -70.03125, y: 82.06254}
-      - {x: -70.03128, y: 85.875}
-      - {x: -73.96875, y: 85.87497}
-      - {x: -73.96872, y: 78.0625}
     - - {x: -53.03128, y: 77.0625}
       - {x: -53.03128, y: 85.875}
       - {x: -66.96875, y: 85.87497}
@@ -8826,6 +8817,14 @@ CompositeCollider2D:
       - {x: -55.99997, y: 79}
       - {x: -55.96875, y: 78.99997}
       - {x: -55.968716, y: 77.0625}
+    - - {x: -71.03128, y: 78.0625}
+      - {x: -71.03122, y: 82}
+      - {x: -71, y: 82.00003}
+      - {x: -70.99997, y: 82.0625}
+      - {x: -70.03125, y: 82.06254}
+      - {x: -70.03128, y: 85.875}
+      - {x: -73.96875, y: 85.87497}
+      - {x: -73.96872, y: 78.0625}
     - - {x: -119.03127, y: 61.062504}
       - {x: -119.03122, y: 71}
       - {x: -119, y: 71.00003}
@@ -8836,11 +8835,7 @@ CompositeCollider2D:
       - {x: -111.96873, y: 69.0625}
       - {x: -109.03124, y: 69.06254}
       - {x: -109.03127, y: 75.875}
-      - {x: -119.96876, y: 75.87497}
-      - {x: -119.968735, y: 75}
-      - {x: -119, y: 74.99997}
-      - {x: -119.00003, y: 74.875}
-      - {x: -120.96876, y: 74.87497}
+      - {x: -120.96876, y: 75.87497}
       - {x: -120.968735, y: 74}
       - {x: -120, y: 73.99997}
       - {x: -120.00003, y: 73.875}
@@ -21264,8 +21259,8 @@ Tilemap:
   - first: {x: -121, y: 74, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 5
-      m_TileSpriteIndex: 5
+      m_TileIndex: 6
+      m_TileSpriteIndex: 6
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -21274,8 +21269,8 @@ Tilemap:
   - first: {x: -120, y: 74, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 17
-      m_TileSpriteIndex: 17
+      m_TileIndex: 9
+      m_TileSpriteIndex: 9
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -21951,11 +21946,21 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: -120, y: 75, z: 0}
+  - first: {x: -121, y: 75, z: 0}
     second:
       serializedVersion: 2
       m_TileIndex: 5
       m_TileSpriteIndex: 5
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: -120, y: 75, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 3
+      m_TileSpriteIndex: 3
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -25699,19 +25704,19 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 2bacc24386e8a8c469a3fde936083070, type: 2}
   - m_RefCount: 23
     m_Data: {fileID: 11400000, guid: 3f330446bd420924d9ba04acb73ad193, type: 2}
-  - m_RefCount: 114
+  - m_RefCount: 115
     m_Data: {fileID: 11400000, guid: 26d956a20bb21464d926038c677414e7, type: 2}
   - m_RefCount: 13
     m_Data: {fileID: 11400000, guid: d113db2dbf6f753469e06637098dded7, type: 2}
-  - m_RefCount: 22
+  - m_RefCount: 21
     m_Data: {fileID: 11400000, guid: ab843a60644b8a2408913ed26f2dcfc8, type: 2}
-  - m_RefCount: 64
+  - m_RefCount: 65
     m_Data: {fileID: 11400000, guid: f26f65d2687c07f45809a89b21b60762, type: 2}
   - m_RefCount: 18
     m_Data: {fileID: 11400000, guid: 5aaa2ed8d57ecf646989eacbd97717a6, type: 2}
   - m_RefCount: 208
     m_Data: {fileID: 11400000, guid: 8e83cf943768e3e4ca6d4ecb8efb9a35, type: 2}
-  - m_RefCount: 969
+  - m_RefCount: 970
     m_Data: {fileID: 11400000, guid: 1bebd631e57f47c49a648f000b1331a9, type: 2}
   - m_RefCount: 62
     m_Data: {fileID: 11400000, guid: 55f0c5c25b8802c4f9f739171630d491, type: 2}
@@ -25727,7 +25732,7 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 28af53d0995251b49a7356f1cad5aded, type: 2}
   - m_RefCount: 8
     m_Data: {fileID: 11400000, guid: 56fc485eb26622f40bd64a28f45896be, type: 2}
-  - m_RefCount: 16
+  - m_RefCount: 15
     m_Data: {fileID: 11400000, guid: 8516facc1d1c7444087bcc921e91332a, type: 2}
   - m_RefCount: 9
     m_Data: {fileID: 11400000, guid: 470eef343043eaf4ab50422b21a17245, type: 2}
@@ -25742,19 +25747,19 @@ Tilemap:
     m_Data: {fileID: -1493951193, guid: 87dae724e4fd0374ebbbba82163b8e37, type: 3}
   - m_RefCount: 23
     m_Data: {fileID: -514060730, guid: 87dae724e4fd0374ebbbba82163b8e37, type: 3}
-  - m_RefCount: 114
+  - m_RefCount: 115
     m_Data: {fileID: 1901113655, guid: 87dae724e4fd0374ebbbba82163b8e37, type: 3}
   - m_RefCount: 13
     m_Data: {fileID: -375616012, guid: 87dae724e4fd0374ebbbba82163b8e37, type: 3}
-  - m_RefCount: 22
+  - m_RefCount: 21
     m_Data: {fileID: 1449137152854170276, guid: 87dae724e4fd0374ebbbba82163b8e37, type: 3}
-  - m_RefCount: 64
+  - m_RefCount: 65
     m_Data: {fileID: -624629247, guid: 87dae724e4fd0374ebbbba82163b8e37, type: 3}
   - m_RefCount: 18
     m_Data: {fileID: -24517600, guid: 87dae724e4fd0374ebbbba82163b8e37, type: 3}
   - m_RefCount: 208
     m_Data: {fileID: 396898873, guid: 87dae724e4fd0374ebbbba82163b8e37, type: 3}
-  - m_RefCount: 969
+  - m_RefCount: 970
     m_Data: {fileID: 1766227595, guid: 87dae724e4fd0374ebbbba82163b8e37, type: 3}
   - m_RefCount: 62
     m_Data: {fileID: 1785186518, guid: 87dae724e4fd0374ebbbba82163b8e37, type: 3}
@@ -25770,7 +25775,7 @@ Tilemap:
     m_Data: {fileID: 1190737966, guid: 87dae724e4fd0374ebbbba82163b8e37, type: 3}
   - m_RefCount: 8
     m_Data: {fileID: 677325297, guid: 87dae724e4fd0374ebbbba82163b8e37, type: 3}
-  - m_RefCount: 16
+  - m_RefCount: 15
     m_Data: {fileID: -423555690, guid: 87dae724e4fd0374ebbbba82163b8e37, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: 1540227761, guid: 87dae724e4fd0374ebbbba82163b8e37, type: 3}
@@ -25779,7 +25784,7 @@ Tilemap:
   - m_RefCount: 0
     m_Data: {fileID: 0}
   m_TileMatrixArray:
-  - m_RefCount: 1658
+  - m_RefCount: 1659
     m_Data:
       e00: 1
       e01: 0
@@ -25798,7 +25803,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 1658
+  - m_RefCount: 1659
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -61719,8 +61724,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Speak
   typingSpeed: 0.1
-  text: '!DANGER! Major Dropoff Point, East.'
+  text: []
   rangeOfSight: 0
+  reInteractIndex: 0
+  npcRevealName: 
+  npcRevealLine: 0
+  choices: 
+  shop: 0
+  leaveText: 
+  stayText: 
 --- !u!212 &742229153
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -119249,8 +119261,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Speak
   typingSpeed: 0.1
-  text: Grotto, West.
+  text: []
   rangeOfSight: 0
+  reInteractIndex: 0
+  npcRevealName: 
+  npcRevealLine: 0
+  choices: 
+  shop: 0
+  leaveText: 
+  stayText: 
 --- !u!212 &1658150526
 SpriteRenderer:
   m_ObjectHideFlags: 0

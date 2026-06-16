@@ -170,12 +170,6 @@ public class RustyGolem : MonoBehaviour, IGrowableEnemy, IEnemy
         {
             if (collision)
             {
-                if (collision.gameObject.CompareTag("SeedBullet")) //checks if touched by bullet
-                {
-                    Destroy(collision.gameObject);
-                    enemyDamage.TakeDamage(2);
-                }
-
                 if (collision.gameObject.CompareTag("Player") && isgrown && bouncepad != null)
                 {
                     Rigidbody2D playerRb = collision.GetComponent<Rigidbody2D>();
