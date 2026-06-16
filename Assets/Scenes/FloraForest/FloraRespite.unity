@@ -11273,6 +11273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef4812a124ab835499673ba3150a9d2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InnerSpirit
+  storedBolts: 0
   spiritdb: 0
   candie: 0
   waterGrown: 0

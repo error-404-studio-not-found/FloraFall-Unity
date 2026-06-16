@@ -106,6 +106,12 @@ public class Saw : MonoBehaviour, IGrowablePlant
         isGrowing = false;
         yield return null;
         Destroy(tetherClone.gameObject);
+
+        if (tetherClone)
+        {
+            Destroy(tetherClone);
+        }
+
         if (sawClone)
         {
             Destroy(sawClone);

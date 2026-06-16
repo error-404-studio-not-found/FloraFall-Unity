@@ -47,7 +47,7 @@ public class DruidLedgeClimb : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
             {
-                if (druidFrameWork.isGrounded == false && isMantled == false && DruidFrameWork.isTransformed == false)
+                if (druidFrameWork.isGrounded == false && isMantled == false && DruidFrameWork.isTransformed == false && tetherClone == null)
                 {
                     LedgeClimbFunction();
                 }

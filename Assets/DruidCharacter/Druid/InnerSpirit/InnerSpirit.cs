@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class InnerSpirit : MonoBehaviour, IGrowablePlant
 {
-    public static int storedBolts = 0;
+    public int storedBolts = 0;
     private Animator animator;
     public bool spiritdb = false;
     public bool candie = false;
-    private int spirits = 1;
+    private int spirits = 0;
     public int spiritCost => spirits;
     public bool waterGrown = false;
     public void setWaterGrow(bool value)
@@ -32,7 +32,7 @@ public class InnerSpirit : MonoBehaviour, IGrowablePlant
 
     public void Grow()
     {
-        if (spiritdb == false && canGrow)
+        if (canGrow)
         {
             StartCoroutine(GrowCycle());
         }
@@ -45,20 +45,18 @@ public class InnerSpirit : MonoBehaviour, IGrowablePlant
 
     private IEnumerator GrowCycle()
     {
+        
         canGrow = false;
-        spiritdb = true;
         currencyManager.gainBolts(storedBolts);
         animator.SetTrigger("Grow");
         Camera.main.GetComponent<FollowPlayer>().ScreenShake(0.02f, 0.4f);
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.35f);
         Camera.main.GetComponent<FollowPlayer>().ScreenShake(0.025f, 0.2f);
-        candie = true;
         canGrow = true;
         spiritdb = true;
+        candie = true;
         DGF.DeGrowPlant(transform);
-        gameObject.SetActive(false);
         yield return null;
-        spiritdb = false;
-        candie = false;
+        Destroy(gameObject);
     }
 }

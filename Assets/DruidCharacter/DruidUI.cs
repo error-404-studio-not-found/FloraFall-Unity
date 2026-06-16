@@ -37,11 +37,13 @@ public class DruidUI : MonoBehaviour, IDamageAble
     private Coroutine flashRoutine;
     private DruidFrameWork frameWork;
     private CurrencyManager currencyManager;
+    DruidGrowFramework DGF;
 
     private FollowPlayer followPlayer;
 
     [SerializeField] private float flashDuration = 0.3f;
     [SerializeField] private float flashPeak = 1f;
+    GameObject innerSpiritClone;
 
     public bool Dead => dead;
 
@@ -53,6 +55,7 @@ public class DruidUI : MonoBehaviour, IDamageAble
         frameWork = GetComponent<DruidFrameWork>();
         druidanims = GetComponent<Animator>();
         mpb = new MaterialPropertyBlock();
+        DGF = GetComponent<DruidGrowFramework>();
         health = MaxHealth;
         druidRig = GetComponent<Rigidbody2D>();
         previousHealth = health;
@@ -174,20 +177,31 @@ public class DruidUI : MonoBehaviour, IDamageAble
     private IEnumerator DeathScreenCycle()
     {
         druidRig.linearVelocityX = 0f;
-
         health = 0;
         waitCycle = true;
         druidanims.SetTrigger("Death");
         followPlayer.ScreenShake(0.02f, 1.03f);
         druidRig.constraints = RigidbodyConstraints2D.FreezeAll;
+        DGF.DeGrowAllPlants();
         yield return new WaitForSeconds(1.03f);
         followPlayer.ScreenShake(0.025f, 0.5f);
         yield return new WaitForSeconds(0.05f);
         deathScreen.SetTrigger("Start");
         yield return new WaitForSeconds(0.2f);
-        innerSpirit.SetActive(true);
-        innerSpirit.transform.position = druid.transform.position;
-        InnerSpirit.storedBolts = currencyManager.nuts;
+
+        if (innerSpiritClone)
+        {
+            Destroy(innerSpiritClone);
+        }
+        yield return null;
+
+        innerSpiritClone = Instantiate(innerSpirit);
+        DontDestroyOnLoad(innerSpiritClone);
+        innerSpiritClone.SetActive(true);
+        innerSpiritClone.transform.position = druid.transform.position;
+        var cloneScript = innerSpiritClone.GetComponent<InnerSpirit>();
+        cloneScript.storedBolts = currencyManager.nuts;
+        yield return null;
         currencyManager.nuts = 0;
         druidRig.constraints = RigidbodyConstraints2D.None;
         druidRig.constraints = RigidbodyConstraints2D.FreezeRotation;
