@@ -1,16 +1,22 @@
 fileFormatVersion: 2
-guid: 694fcc180c064b34eb35a6ed5a0580c6
+guid: 7a887418f4e45684083b3575561b06b7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4227890307691588434
-    second: TankIdle_0
+      213: -9213753461336759382
+    second: TankShoot_0
   - first:
-      213: -7476670210363011492
-    second: TankIdle_1
+      213: 5566876677891433433
+    second: TankShoot_1
   - first:
-      213: 3764565902899292202
-    second: TankIdle_2
+      213: 3384279404836090562
+    second: TankShoot_2
+  - first:
+      213: -3815562013859818222
+    second: TankShoot_3
+  - first:
+      213: 87657465746521758
+    second: TankShoot_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -43,7 +49,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -57,7 +63,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -81,7 +87,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -106,67 +112,111 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TankIdle_0
+      name: TankShoot_0
       rect:
         serializedVersion: 2
-        x: 47
+        x: 0
         y: 0
-        width: 185
-        height: 91
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 248
+        height: 248
+      alignment: 9
+      pivot: {x: 0.5612383, y: 0.2977125}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 25b2643a5db7caa30800000000000000
-      internalID: 4227890307691588434
+      spriteID: aa32ff02b0c222080800000000000000
+      internalID: -9213753461336759382
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TankIdle_1
+      name: TankShoot_1
       rect:
         serializedVersion: 2
-        x: 295
+        x: 248
         y: 0
-        width: 185
-        height: 91
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 248
+        height: 248
+      alignment: 9
+      pivot: {x: 0.5612383, y: 0.2977125}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c5e41988e088d3890800000000000000
-      internalID: -7476670210363011492
+      spriteID: 9d3202e08d4814d40800000000000000
+      internalID: 5566876677891433433
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TankIdle_2
+      name: TankShoot_2
       rect:
         serializedVersion: 2
-        x: 543
+        x: 496
         y: 0
-        width: 185
-        height: 92
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 248
+        height: 248
+      alignment: 9
+      pivot: {x: 0.5612383, y: 0.2977125}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a282cdf3ebc6e3430800000000000000
-      internalID: 3764565902899292202
+      spriteID: 2c2fce1203067fe20800000000000000
+      internalID: 3384279404836090562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TankShoot_3
+      rect:
+        serializedVersion: 2
+        x: 744
+        y: 0
+        width: 248
+        height: 248
+      alignment: 9
+      pivot: {x: 0.5612383, y: 0.2977125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 215596960966c0bc0800000000000000
+      internalID: -3815562013859818222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TankShoot_4
+      rect:
+        serializedVersion: 2
+        x: 992
+        y: 0
+        width: 248
+        height: 248
+      alignment: 9
+      pivot: {x: 0.5612383, y: 0.2977125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9e7bbb200c673100800000000000000
+      internalID: 87657465746521758
       vertices: []
       indices: 
       edges: []
@@ -175,7 +225,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 6490dc9f82ec09a44bd0641c841fa4da
     internalID: 0
     vertices: []
     indices: 
@@ -183,11 +233,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":248.0,"y":248.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5612382888793945,"y":0.297712504863739},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":9,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      TankIdle_0: 4227890307691588434
-      TankIdle_1: -7476670210363011492
-      TankIdle_2: 3764565902899292202
+      TankShoot_0: -9213753461336759382
+      TankShoot_1: 5566876677891433433
+      TankShoot_2: 3384279404836090562
+      TankShoot_3: -3815562013859818222
+      TankShoot_4: 87657465746521758
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
