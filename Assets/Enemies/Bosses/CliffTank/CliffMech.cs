@@ -53,10 +53,24 @@ public class CliffMech : MonoBehaviour
             if (!isDashing && !isShooting)
             {
                 Debug.Log("Moving");
+                float distance = Vector2.Distance(bossRig.position, movePos);
+                if (distance > 0.1f)
+                {
+                    Vector2 direction = (movePos - bossRig.position).normalized;
+                    bossRig.linearVelocity = direction * movementSpeed;
+                }
+                else bossRig.linearVelocity = Vector2.zero;
 
-                Vector2 direction = (movePos - bossRig.position).normalized;
-                bossRig.linearVelocity = direction * movementSpeed;
-                mechAnimator.SetFloat("XVelo", bossRig.linearVelocity.x);
+                bool backwards = false;
+                if (!bossSprite.flipX)
+                {
+                    backwards = movePos.x > transform.position.x;
+                } else
+                {
+                    backwards = movePos.x < transform.position.x;
+                }
+                mechAnimator.SetBool("Backwards", backwards);
+                mechAnimator.SetFloat("XVelo", Mathf.Abs(bossRig.linearVelocity.x));
             }
         } 
     }
@@ -74,14 +88,17 @@ public class CliffMech : MonoBehaviour
                 mechDone = true;
                 cliffCutscene.MechEnd();
             }
-            if (druidPos < 0)
+            if (!isDashing && !isShooting)
             {
-                bossSprite.flipX = true;
-            }
-            else
-            {
-                bossSprite.flipX = false;
-            }
+                if (druidPos < 0)
+                {
+                    bossSprite.flipX = true;
+                }
+                else
+                {
+                    bossSprite.flipX = false;
+                }
+            }  
 
             if (!rocketCooldown && !isDashing)
             {
@@ -114,10 +131,11 @@ public class CliffMech : MonoBehaviour
         dashCd = true;
         isDashing = true;
         mechAnimator.SetTrigger("Dash");
+        bossRig.linearVelocity = Vector2.zero;
         yield return new WaitUntil(() => mechAnimator.GetCurrentAnimatorStateInfo(0).IsName("CliffTankDashing"));
         var dashDir = bossSprite.flipX ? 1 : -1;
         startedDash = true;
-        bossRig.AddForceX(dashMovementSpeed, ForceMode2D.Impulse);
+        bossRig.AddForceX(dashMovementSpeed * dashDir, ForceMode2D.Impulse);
         yield return new WaitForSeconds(1.5f);
         if (startedDash == true)
         {
@@ -142,6 +160,7 @@ public class CliffMech : MonoBehaviour
         isShooting = true;
         rocketCooldown = true;
         mechAnimator.SetTrigger("Shoot");
+        yield return new WaitForSeconds(1.6f);
         for (int i = 0; i < rocketAmount; i++)
         {
             if (mechDone) break;
@@ -153,7 +172,8 @@ public class CliffMech : MonoBehaviour
             rocketList.Add(newRocket);
             rocketHitPositions.Add(druidTransform);
             StartCoroutine(RocketMove(newRocket, druidTransform));
-            yield return new WaitForSeconds(timeBetweenRockets);
+            if (i == rocketAmount - 1) break;
+            else yield return new WaitForSeconds(timeBetweenRockets);
         }
         mechAnimator.SetTrigger("StopShoot");
         yield return new WaitForSeconds(1f);

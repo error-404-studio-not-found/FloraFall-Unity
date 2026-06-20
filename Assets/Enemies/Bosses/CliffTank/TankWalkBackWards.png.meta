@@ -1,16 +1,19 @@
 fileFormatVersion: 2
-guid: 694fcc180c064b34eb35a6ed5a0580c6
+guid: 398a3f7e88cf98b4fbc40d8925ebe25f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4227890307691588434
-    second: TankIdle_0
+      213: 6355328851285620026
+    second: TankWalkBackWards_0
   - first:
-      213: -7476670210363011492
-    second: TankIdle_1
+      213: -7517700103852417252
+    second: TankWalkBackWards_1
   - first:
-      213: 3764565902899292202
-    second: TankIdle_2
+      213: 6871483407919030921
+    second: TankWalkBackWards_2
+  - first:
+      213: -3839487802501763835
+    second: TankWalkBackWards_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -43,7 +46,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -57,7 +60,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -81,7 +84,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -106,67 +109,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TankIdle_0
+      name: TankWalkBackWards_0
       rect:
         serializedVersion: 2
-        x: 47
+        x: 0
         y: 0
-        width: 185
-        height: 91
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 248
+        height: 128
+      alignment: 9
+      pivot: {x: 0.56, y: 0.58}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 25b2643a5db7caa30800000000000000
-      internalID: 4227890307691588434
+      spriteID: a35bba31be9a23850800000000000000
+      internalID: 6355328851285620026
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TankIdle_1
+      name: TankWalkBackWards_1
       rect:
         serializedVersion: 2
-        x: 295
+        x: 248
         y: 0
-        width: 185
-        height: 91
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 248
+        height: 128
+      alignment: 9
+      pivot: {x: 0.56, y: 0.58}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c5e41988e088d3890800000000000000
-      internalID: -7476670210363011492
+      spriteID: c1f95f50693cba790800000000000000
+      internalID: -7517700103852417252
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TankIdle_2
+      name: TankWalkBackWards_2
       rect:
         serializedVersion: 2
-        x: 543
+        x: 496
         y: 0
-        width: 185
-        height: 92
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 248
+        height: 128
+      alignment: 9
+      pivot: {x: 0.56, y: 0.58}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a282cdf3ebc6e3430800000000000000
-      internalID: 3764565902899292202
+      spriteID: 9822109b0c96c5f50800000000000000
+      internalID: 6871483407919030921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TankWalkBackWards_3
+      rect:
+        serializedVersion: 2
+        x: 744
+        y: 0
+        width: 248
+        height: 128
+      alignment: 9
+      pivot: {x: 0.56, y: 0.58}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50def64af2667bac0800000000000000
+      internalID: -3839487802501763835
       vertices: []
       indices: 
       edges: []
@@ -175,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: b7b7ed7daa0db4d49b54c23d8d82fe5d
     internalID: 0
     vertices: []
     indices: 
@@ -183,11 +208,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":248.0,"y":128.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5600000023841858,"y":0.5799999833106995},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":9,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      TankIdle_0: 4227890307691588434
-      TankIdle_1: -7476670210363011492
-      TankIdle_2: 3764565902899292202
+      TankWalkBackWards_0: 6355328851285620026
+      TankWalkBackWards_1: -7517700103852417252
+      TankWalkBackWards_2: 6871483407919030921
+      TankWalkBackWards_3: -3839487802501763835
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
