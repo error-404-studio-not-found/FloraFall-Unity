@@ -11,6 +11,7 @@ public class CliffMech : MonoBehaviour
     public float movementSpeed = 2f;
     [SerializeField] private GameObject rocket;
     private bool rocketCooldown = false;
+    [SerializeField] private float behindChecker = 4f;
     private bool isShooting = false;
     private bool isDashing = false;
     [SerializeField] private float timeBetweenRockets = 0.2f;
@@ -50,17 +51,9 @@ public class CliffMech : MonoBehaviour
         if (bossRig.bodyType == RigidbodyType2D.Dynamic && !mechDone)
         {
             Vector2 movePos = new Vector2(druidTransform.position.x, gameObject.transform.position.y) + new Vector2((bossSprite.flipX ? -1 : 1) * offset, 0);
+            var movementDir = bossSprite.flipX ? -1 : 1;
             if (!isDashing && !isShooting)
             {
-                Debug.Log("Moving");
-                float distance = Vector2.Distance(bossRig.position, movePos);
-                if (distance > 0.1f)
-                {
-                    Vector2 direction = (movePos - bossRig.position).normalized;
-                    bossRig.linearVelocity = direction * movementSpeed;
-                }
-                else bossRig.linearVelocity = Vector2.zero;
-
                 bool backwards = false;
                 if (!bossSprite.flipX)
                 {
@@ -69,8 +62,25 @@ public class CliffMech : MonoBehaviour
                 {
                     backwards = movePos.x < transform.position.x;
                 }
+                RaycastHit2D backCheck = Physics2D.Raycast(transform.position + new Vector3(0, -1f, 0), new Vector2(movementDir, 0), behindChecker, LayerMask.GetMask("Ground"));
+                if (backCheck && backwards)
+                {
+                    bossRig.linearVelocity = Vector2.zero;
+                    mechAnimator.SetFloat("XVelo", 0);
+                } else
+                {
+                    Debug.Log("Moving");
+                    float distance = Vector2.Distance(bossRig.position, movePos);
+                    if (distance > 0.1f)
+                    {
+                        Vector2 direction = (movePos - bossRig.position).normalized;
+                        bossRig.linearVelocity = direction * movementSpeed;
+                    }
+                    else bossRig.linearVelocity = Vector2.zero;
+                    mechAnimator.SetFloat("XVelo", Mathf.Abs(bossRig.linearVelocity.x));
+                }
                 mechAnimator.SetBool("Backwards", backwards);
-                mechAnimator.SetFloat("XVelo", Mathf.Abs(bossRig.linearVelocity.x));
+              
             }
         } 
     }
@@ -168,7 +178,7 @@ public class CliffMech : MonoBehaviour
             var newRocket = Instantiate(rocket);
             newRocket.SetActive(true);
             newRocket.transform.position = normalPos.position;
-            newRocket.transform.rotation = Quaternion.Euler(0, 0, 90);
+            newRocket.transform.rotation = Quaternion.Euler(0, 0, -90f);
             rocketList.Add(newRocket);
             rocketHitPositions.Add(druidTransform);
             StartCoroutine(RocketMove(newRocket, druidTransform));
@@ -204,7 +214,7 @@ public class CliffMech : MonoBehaviour
 
         Vector2 targetPos = rocketHitPos.position;
 
-        rocket.transform.rotation = Quaternion.Euler(0, 0, -90f);
+        rocket.transform.rotation = Quaternion.Euler(0, 0, 90f);
         float speed = 5f;
 
         while (Mathf.Abs(druidTransform.position.x - rocket.transform.position.x) > 0.5f)
@@ -243,6 +253,7 @@ public class CliffMech : MonoBehaviour
             yield return null;
 
         }
+        rocket.transform.rotation = Quaternion.identity;
         rocketHitPositions.Remove(rocketHitPos);
         rocketList.Remove(rocket);
     }
