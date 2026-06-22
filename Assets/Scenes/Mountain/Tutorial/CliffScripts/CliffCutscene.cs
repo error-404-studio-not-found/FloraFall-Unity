@@ -137,7 +137,7 @@ public class CliffCutscene : MonoBehaviour
         FollowPlayer followPlayer = Camera.main.GetComponent<FollowPlayer>();
 
         var currentCamPos = Camera.main.transform.position;
-        followPlayer.enabled = false;
+        followPlayer.canFollow = false;
         while (t < 0.75f)
         {
             t += Time.deltaTime;
@@ -154,7 +154,10 @@ public class CliffCutscene : MonoBehaviour
         t = 0;
         bossCollider.enabled = true;
         bossRig.bodyType = RigidbodyType2D.Dynamic;
+        bossRig.gravityScale = 4;
         ppc.assetsPPU = endPPU;
+        yield return new WaitForSeconds(1f);
+        followPlayer.ScreenShake(0.1f, 0.5f);
         yield return new WaitForSeconds(2f);
         druidAnimator.SetTrigger("StaffSlam");
         currentCamPos = Camera.main.transform.position;
@@ -173,7 +176,7 @@ public class CliffCutscene : MonoBehaviour
         }
         ppc.assetsPPU = 32;
         ppc.enabled = true;
-        followPlayer.enabled = true;
+        followPlayer.canFollow = true;
         CutsceneBars.Instance.CutsceneBarsEnd();
         cutsceneCompleted = true;
         inCutscene = false;

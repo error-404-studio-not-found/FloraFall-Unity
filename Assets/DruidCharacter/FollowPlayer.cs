@@ -27,6 +27,7 @@ public class FollowPlayer : MonoBehaviour
     private float shakeTimer;
     private float shakeMagnitude;
     private float shakeFrequency = 25f;
+    public bool canFollow = true;
 
     private Vector3 shakeOffset;
     private float shakeSeed;
@@ -45,50 +46,53 @@ public class FollowPlayer : MonoBehaviour
 
     private void LateUpdate()
     {
-        var druidDir = druidSprite.flipX ? -1f : 1f;
-
-        //LOOK AHEAD
-        Vector2 offset = Vector2.zero;
-        if (druidRig.linearVelocityX > 0.1 || druidRig.linearVelocityX < -0.1)
+        if (canFollow)
         {
-            offset.x = lookAheadOffset * druidDir;
-        }
-        else if (druidRig.linearVelocityX == 0)
-        {
-            offset.x = 0;
-        }
+            var druidDir = druidSprite.flipX ? -1f : 1f;
 
-        float verticalChangeThreshold = 1f;
-        if (druidRig.linearVelocityY > verticalChangeThreshold)
-        {
-            offset.y = lookAheadOffset;
-        }
-        else if (druidRig.linearVelocityY < -verticalChangeThreshold)
-        {
-            offset.y = -lookAheadOffset;
-        }
-        else offset.y = 0;
-
-        currentOffset = Vector2.SmoothDamp(currentOffset, offset, ref offsetVelocity, offsetSmoothTime);
-        target = Maincharacter.transform;
-        Vector3 newpos = new Vector3(target.position.x + currentOffset.x, target.position.y + currentOffset.y, -10);
-
-        float clampedX = Mathf.Clamp(newpos.x, minBounds.x + camHalfWidth, maxBounds.x - camHalfWidth);
-        float clampedY = Mathf.Clamp(newpos.y, minBounds.y + camHalfHeight, maxBounds.y - camHalfHeight);
-        Vector3 clampedTarget = new Vector3(clampedX, clampedY, -10);
-
-        if (snapThisFrame)
-        {
-            transform.position = clampedTarget;
-
-            if (Vector3.Distance(transform.position, clampedTarget) < 0.001f)
+            //LOOK AHEAD
+            Vector2 offset = Vector2.zero;
+            if (druidRig.linearVelocityX > 0.1 || druidRig.linearVelocityX < -0.1)
             {
-                snapThisFrame = false;
+                offset.x = lookAheadOffset * druidDir;
             }
-        }
-        else
-        {
-            transform.position = Vector3.SmoothDamp(transform.position, clampedTarget, ref velocity, smoothTime);
+            else if (druidRig.linearVelocityX == 0)
+            {
+                offset.x = 0;
+            }
+
+            float verticalChangeThreshold = 1f;
+            if (druidRig.linearVelocityY > verticalChangeThreshold)
+            {
+                offset.y = lookAheadOffset;
+            }
+            else if (druidRig.linearVelocityY < -verticalChangeThreshold)
+            {
+                offset.y = -lookAheadOffset;
+            }
+            else offset.y = 0;
+
+            currentOffset = Vector2.SmoothDamp(currentOffset, offset, ref offsetVelocity, offsetSmoothTime);
+            target = Maincharacter.transform;
+            Vector3 newpos = new Vector3(target.position.x + currentOffset.x, target.position.y + currentOffset.y, -10);
+
+            float clampedX = Mathf.Clamp(newpos.x, minBounds.x + camHalfWidth, maxBounds.x - camHalfWidth);
+            float clampedY = Mathf.Clamp(newpos.y, minBounds.y + camHalfHeight, maxBounds.y - camHalfHeight);
+            Vector3 clampedTarget = new Vector3(clampedX, clampedY, -10);
+
+            if (snapThisFrame)
+            {
+                transform.position = clampedTarget;
+
+                if (Vector3.Distance(transform.position, clampedTarget) < 0.001f)
+                {
+                    snapThisFrame = false;
+                }
+            }
+            else
+            {
+                transform.position = Vector3.SmoothDamp(transform.position, clampedTarget, ref velocity, smoothTime);
+            }
         }
 
         if (shakeTimer > 0)
