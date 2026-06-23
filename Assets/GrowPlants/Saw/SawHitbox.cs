@@ -21,11 +21,11 @@ public class SawHitbox : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {;
         if (hitCooldown) return;
-        int enemyMask = LayerMask.GetMask("GrowEnemy", "RoboticEnemy");
+        int enemyMask = LayerMask.GetMask("GrowEnemy", "RoboticEnemy", "Boss", "Breakables");
 
         if (((1 << collision.gameObject.layer) & enemyMask) != 0)
         {
-            IEnemy enemy = collision.gameObject.GetComponent<IEnemy>();
+            IDamageAble enemy = collision.gameObject.GetComponent<IDamageAble>();
             if (enemy != null && !enemy.Dead)
             {
                 StartCoroutine(Bounce(collision.gameObject.transform));

@@ -82,7 +82,7 @@ TagManager:
   - Breakables
   - HiddenAreas
   - GroundCollider
-  - 
+  - InvisibleBounds
   - 
   - 
   - 

@@ -54,9 +54,8 @@ public class Hitbox : MonoBehaviour
     {
         druidRig.linearVelocity = Vector2.zero;
         DruidFrameWork.canmove = false;
-        var hitYDir = transform.position.y > druid.transform.position.y ? -1 : 1;
         var hitXDir = transform.position.x > druid.transform.position.x ? -1 : 1;
-        druidRig.AddForce(new Vector2(hitXDir * knockBackForce, hitYDir * knockBackForce), ForceMode2D.Impulse);
+        druidRig.AddForce(new Vector2(hitXDir * knockBackForce, knockBackForce), ForceMode2D.Impulse);
         yield return new WaitForSeconds(timeStunned);
         Debug.Log("Stopped KnockBack");
         DruidFrameWork.canmove = true;

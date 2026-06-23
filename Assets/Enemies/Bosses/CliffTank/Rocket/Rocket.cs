@@ -37,12 +37,12 @@ public class Rocket : MonoBehaviour
         transform.rotation = Quaternion.identity;
         var normalHitbox = gameObject.GetComponent<BoxCollider2D>();
         normalHitbox.enabled = false;
-        RaycastHit2D movePoint = Physics2D.Raycast(transform.position, Vector2.down, 100, LayerMask.GetMask("Ground"));
+        /*RaycastHit2D movePoint = Physics2D.Raycast(transform.position, Vector2.down, 100, LayerMask.GetMask("Ground"));
         if (movePoint)
         {
             transform.position = movePoint.point;
             transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
-        }
+        }*/
         exploding = true;
         animator.SetTrigger("Explode");
         explosionHitbox.SetActive(true);

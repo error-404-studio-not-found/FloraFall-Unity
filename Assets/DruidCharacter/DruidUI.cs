@@ -133,7 +133,7 @@ public class DruidUI : MonoBehaviour, IDamageAble
             {
                 hitImmune = true;
                 health -= damage;
-                StartCoroutine(HitImmuneCoroutine(0.5f));
+                StartCoroutine(HitImmuneCoroutine(0.75f));
                 Flash();
                 StartCoroutine(frameWork.FreezeFrame(0.3f));
                 followPlayer.ScreenShake(0.02f, 0.5f);

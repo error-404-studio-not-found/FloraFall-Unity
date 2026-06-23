@@ -29,6 +29,7 @@ public class CliffMech : MonoBehaviour
     DruidUI druidUI;
     [SerializeField] private float timeConstraint = 180f;
     [SerializeField] private float dashInFrontDetection = 2f;
+    private bool canUseAbility = true;
     private Animator mechAnimator;
     private bool startedDash = false;
     EnemyDamage damage;
@@ -62,7 +63,7 @@ public class CliffMech : MonoBehaviour
                 {
                     backwards = movePos.x < transform.position.x;
                 }
-                RaycastHit2D backCheck = Physics2D.Raycast(transform.position + new Vector3(0, -1f, 0), new Vector2(movementDir, 0), behindChecker, LayerMask.GetMask("Ground"));
+                RaycastHit2D backCheck = Physics2D.Raycast(transform.position + new Vector3(0, -1f, 0), new Vector2(movementDir, 0), behindChecker, LayerMask.GetMask("Ground", "InvisibleBounds"));
                 if (backCheck && backwards)
                 {
                     bossRig.linearVelocity = Vector2.zero;
@@ -110,12 +111,12 @@ public class CliffMech : MonoBehaviour
                 }
             }  
 
-            if (!rocketCooldown && !isDashing)
+            if (!rocketCooldown && !isDashing && canUseAbility)
             {
                 StartCoroutine(RocketShoot());
             }
 
-            if (!dashCd && !isShooting)
+            if (!dashCd && !isShooting && canUseAbility)
             {
                 if (Vector2.Distance(druidTransform.position, transform.position) <= dashDistance)
                 {
@@ -127,7 +128,7 @@ public class CliffMech : MonoBehaviour
             if (isDashing && startedDash)
             {
                 var dashDir = bossSprite.flipX ? 1 : -1;
-                RaycastHit2D wallCheck = Physics2D.Raycast(transform.position, new Vector2(dashDir, 0), dashInFrontDetection, LayerMask.GetMask("Ground"));
+                RaycastHit2D wallCheck = Physics2D.Raycast(transform.position, new Vector2(dashDir, 0), dashInFrontDetection, LayerMask.GetMask("Ground", "InvisibleBounds"));
                 if (wallCheck)
                 {
                     StartCoroutine(StopDash());
@@ -138,6 +139,7 @@ public class CliffMech : MonoBehaviour
 
     private IEnumerator DashRoutine()
     {
+        canUseAbility = false;
         dashCd = true;
         isDashing = true;
         mechAnimator.SetTrigger("Dash");
@@ -159,14 +161,19 @@ public class CliffMech : MonoBehaviour
         startedDash = false;
         mechAnimator.SetTrigger("StopDash");
         yield return new WaitUntil(() => mechAnimator.GetCurrentAnimatorStateInfo(0).IsName("CliffTankIdle"));
-        yield return new WaitForSeconds(1.5f);
+        bossRig.linearVelocity = Vector2.zero;
+        mechAnimator.SetFloat("XVelo", 0f);
+        yield return new WaitForSeconds(1f);
         isDashing = false;
+        yield return new WaitForSeconds(3f);
+        canUseAbility = true;
         yield return new WaitForSeconds(dashCooldownTime);
         dashCd = false;
     }
 
     private IEnumerator RocketShoot()
     {
+        canUseAbility = false;
         isShooting = true;
         rocketCooldown = true;
         mechAnimator.SetTrigger("Shoot");
@@ -188,6 +195,8 @@ public class CliffMech : MonoBehaviour
         mechAnimator.SetTrigger("StopShoot");
         yield return new WaitForSeconds(1f);
         isShooting = false;
+        yield return new WaitForSeconds(5f);
+        canUseAbility = true;
         yield return new WaitForSeconds(rocketCooldownTime);
         rocketCooldown = false;
     }
@@ -216,7 +225,6 @@ public class CliffMech : MonoBehaviour
 
         rocket.transform.rotation = Quaternion.Euler(0, 0, 90f);
         float speed = 5f;
-
         while (Mathf.Abs(druidTransform.position.x - rocket.transform.position.x) > 0.5f)
         {
             RaycastHit2D beamCast = Physics2D.Raycast(rocket.transform.position, Vector2.down, 100, LayerMask.GetMask("Ground"));
@@ -224,10 +232,9 @@ public class CliffMech : MonoBehaviour
             rocketLine.SetPosition(1, beamCast.point);
             Vector2 rotationPos = new Vector2(druidTransform.position.x, rocket.transform.position.y);
             rocket.transform.position = Vector2.MoveTowards(rocket.transform.position, rotationPos, speed * Time.deltaTime);
-
+          
             yield return null;
             targetPos = beamCast.point;
-
         }
 
         int flashCount = 5;
