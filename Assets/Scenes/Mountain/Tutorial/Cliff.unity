@@ -1173,7 +1173,7 @@ MonoBehaviour:
   rocket: {fileID: 1363633368}
   behindChecker: 3
   timeBetweenRockets: 1
-  rocketAmount: 2
+  rocketAmount: 3
   rocketCooldownTime: 15
   normalPos: {fileID: 290005072}
   offset: 5
