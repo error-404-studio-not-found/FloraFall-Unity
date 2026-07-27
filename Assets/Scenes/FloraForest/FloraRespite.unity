@@ -63838,7 +63838,7 @@ Transform:
   m_GameObject: {fileID: 1907236526}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -24.3, y: -17.7, z: 0}
+  m_LocalPosition: {x: -24.3, y: -19.62, z: 0}
   m_LocalScale: {x: 1.2065867, y: 7.494833, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -72393,6 +72393,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2096813020
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2096813021}
+  m_Layer: 0
+  m_Name: UpperSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2096813021
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2096813020}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.5, y: -0.3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2103506450
 GameObject:
   m_ObjectHideFlags: 0
@@ -72891,4 +72922,5 @@ SceneRoots:
   - {fileID: 1756896011}
   - {fileID: 165598553}
   - {fileID: 1976577296}
+  - {fileID: 2096813021}
   - {fileID: 1492183335}

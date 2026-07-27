@@ -118,7 +118,7 @@ public class ChunkLoader : MonoBehaviour
         fade.GetCurrentAnimatorStateInfo(0).IsName("CircleWipeExposed"));
 
         DruidFrameWork druid = player.GetComponent<DruidFrameWork>();
-
+        playerRig.gravityScale = 0;
         if (druid != null)
         {
             if (!DruidFrameWork.isTransformed)
@@ -155,7 +155,7 @@ public class ChunkLoader : MonoBehaviour
             Debug.Log("TimeScale = " + Time.timeScale);
             Debug.Log("Spawned Druid");
             playerRig.linearVelocity = new Vector2(0, 0);
-            StartCoroutine(SpawnRoutine());
+            StartCoroutine(SpawnRoutine(playerRig));
         }
         else
         {
@@ -163,9 +163,10 @@ public class ChunkLoader : MonoBehaviour
         }
     }
 
-    private IEnumerator SpawnRoutine()
+    private IEnumerator SpawnRoutine(Rigidbody2D playerRig)
     {
         yield return new WaitForSeconds(0.75f);
+        playerRig.gravityScale = 1;
         ppc.assetsPPU = 32;
         cam.orthographicSize = 4.5f;
         ppc.enabled = true;
