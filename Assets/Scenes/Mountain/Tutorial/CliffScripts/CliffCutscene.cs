@@ -15,6 +15,9 @@ public class CliffCutscene : MonoBehaviour
     private Transform druidTransform;
     private DruidFrameWork DF;
     [SerializeField] private GameObject boss;
+    [SerializeField] private GameObject helicopter;
+    [SerializeField] private GameObject dropOffPos;
+    [SerializeField] private GameObject finalMoveToPos;
     private Rigidbody2D bossRig;
     private BoxCollider2D bossCollider;
     [SerializeField] private float zoomedOutSize = 1.5f;
@@ -138,14 +141,17 @@ public class CliffCutscene : MonoBehaviour
 
         var currentCamPos = Camera.main.transform.position;
         followPlayer.canFollow = false;
-        while (t < 0.75f)
+        var startingHelicopterPosition = helicopter.transform.position;
+        while (t < 1.5f)
         {
             t += Time.deltaTime;
             float k = t / 0.75f;
+            helicopter.transform.position = new Vector3(Mathf.Lerp(startingHelicopterPosition.x, dropOffPos.transform.position.x, t/1.5f), helicopter.transform.position.y);
             k = 1f - Mathf.Cos(k * Mathf.PI * 0.5f);
+
             Camera.main.orthographicSize = Mathf.Lerp(startOrtho, zoomedOutSize, k);
-            float newX = Mathf.Lerp(currentCamPos.x, firstCamLerpPos.position.x, k);
-            float newY = Mathf.Lerp(currentCamPos.y, firstCamLerpPos.position.y, k);
+            float newX = Mathf.Lerp(currentCamPos.x, boss.transform.position.x, k);
+            float newY = Mathf.Lerp(currentCamPos.y, boss.transform.position.y, k);
 
             Camera.main.transform.position = new Vector3(newX, newY, currentCamPos.z);
 
@@ -153,14 +159,26 @@ public class CliffCutscene : MonoBehaviour
         }
         t = 0;
         bossCollider.enabled = true;
+        boss.transform.parent = null;
+        StartCoroutine(HelicopterMove());
         bossRig.bodyType = RigidbodyType2D.Dynamic;
         bossRig.gravityScale = 4;
+        currentCamPos = Camera.main.transform.position;
+        while (t < 0.5f)
+        {
+            t += Time.deltaTime;
+            float k = t / 0.5f;
+            float newX = Mathf.Lerp(currentCamPos.x, boss.transform.position.x, k);
+            float newY = Mathf.Lerp(currentCamPos.y, boss.transform.position.y - 3, k);
+            Camera.main.transform.position = new Vector3(newX, newY, currentCamPos.z);
+            yield return null;
+        }
         ppc.assetsPPU = endPPU;
-        yield return new WaitForSeconds(1f);
         followPlayer.ScreenShake(0.1f, 0.5f);
         yield return new WaitForSeconds(2f);
         druidAnimator.SetTrigger("StaffSlam");
         currentCamPos = Camera.main.transform.position;
+        t = 0;
         while (t < 0.75f)
         {
             t += Time.deltaTime;
@@ -183,5 +201,18 @@ public class CliffCutscene : MonoBehaviour
         yield return new WaitForSeconds(1f);
         DruidFrameWork.inCutscene = false;
         cliffMech.enabled = true;
+    }
+
+    private IEnumerator HelicopterMove()
+    {
+        float t = 0;
+        var helicopterStartingPos = helicopter.transform.position;
+        while (t < 4.5f)
+        {
+            t += Time.deltaTime;
+            helicopter.transform.position = new Vector2(Mathf.Lerp(helicopterStartingPos.x, finalMoveToPos.transform.position.x, t/4.5f), helicopter.transform.position.y);
+            yield return null;
+        }
+        Destroy(helicopter);
     }
 }
