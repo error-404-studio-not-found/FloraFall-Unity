@@ -164,7 +164,7 @@ public class CliffCutscene : MonoBehaviour
         bossRig.bodyType = RigidbodyType2D.Dynamic;
         bossRig.gravityScale = 4;
         currentCamPos = Camera.main.transform.position;
-        while (t < 0.5f)
+        while (t < 0.6f)
         {
             t += Time.deltaTime;
             float k = t / 0.5f;

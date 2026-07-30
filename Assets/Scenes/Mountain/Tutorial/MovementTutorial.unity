@@ -125024,7 +125024,7 @@ MonoBehaviour:
   sawSpeed: 2
   respawnTime: 7
   plantPos: {fileID: 0}
-  sawDistance: 5
+  sawDistance: 8
 --- !u!61 &1700590303
 BoxCollider2D:
   m_ObjectHideFlags: 0
