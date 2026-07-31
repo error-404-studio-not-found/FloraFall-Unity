@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 public class Hitbox : MonoBehaviour
 {
@@ -11,9 +11,9 @@ public class Hitbox : MonoBehaviour
     [SerializeField] private bool knockBack = false;
     [SerializeField] private GameObject parentObject;
     [SerializeField] private float damage = 1f;
-    GameObject druid;
-    Rigidbody2D druidRig;
-    DruidUI druidUI;
+    private GameObject druid;
+    private Rigidbody2D druidRig;
+    private DruidUI druidUI;
     [SerializeField] private float knockBackForce = 2f;
     [SerializeField] private float timeStunned = 0.2f;
 
@@ -27,6 +27,7 @@ public class Hitbox : MonoBehaviour
             druidRig = player.GetComponent<Rigidbody2D>();
         }
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("Entered Trigger");
@@ -37,8 +38,9 @@ public class Hitbox : MonoBehaviour
             {
                 StartCoroutine(KnockBack());
             }
-        } else if ((collision.gameObject.layer == LayerMask.NameToLayer("GrowEnemy") 
-            || collision.gameObject.layer == LayerMask.NameToLayer("RoboticEnemy") 
+        }
+        else if ((collision.gameObject.layer == LayerMask.NameToLayer("GrowEnemy")
+            || collision.gameObject.layer == LayerMask.NameToLayer("RoboticEnemy")
             || collision.gameObject.layer == LayerMask.NameToLayer("Breakables")) && !druidDamaging)
         {
             Debug.Log("Hitbox Passed Layer Check!");
@@ -46,7 +48,7 @@ public class Hitbox : MonoBehaviour
             {
                 Debug.Log("Hit Enemy!");
                 Persistence.instance.ApplyDamage(collision.gameObject, damage);
-            }  
+            }
         }
     }
 

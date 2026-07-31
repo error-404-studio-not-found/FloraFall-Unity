@@ -39,7 +39,7 @@ public class CliffMech : MonoBehaviour
     private void Start()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        cliffCutscene = GameObject.Find("Cutscene").GetComponent<CliffCutscene>();
+        cliffCutscene = GameObject.Find("CutsceneCliff").GetComponent<CliffCutscene>();
         mechAnimator = GetComponent<Animator>();
         bossRig = GetComponent<Rigidbody2D>();
         druidUI = player.GetComponent<DruidUI>();
@@ -63,7 +63,7 @@ public class CliffMech : MonoBehaviour
                 {
                     backwards = movePos.x < transform.position.x;
                 }
-                RaycastHit2D backCheck = Physics2D.Raycast(transform.position + new Vector3(0, -1f, 0), new Vector2(movementDir, 0), behindChecker, LayerMask.GetMask("Ground", "InvisibleBounds"));
+                RaycastHit2D backCheck = Physics2D.Raycast(transform.position + new Vector3(0, -1f, 0), new Vector2(movementDir, 0), behindChecker, LayerMask.GetMask("Ground", "InvisibleBounds", "ArenaWalls"));
                 if (backCheck && backwards)
                 {
                     bossRig.linearVelocity = Vector2.zero;
@@ -97,7 +97,12 @@ public class CliffMech : MonoBehaviour
             {
                 bossRig.linearVelocity = Vector2.zero;
                 mechDone = true;
+                Debug.Log("MechDone!");
                 cliffCutscene.MechEnd();
+                druidUI.hitImmune = true;
+                isDashing = false;
+                isShooting = false;
+                mechAnimator.SetFloat("XVelo", 0);
             }
             if (!isDashing && !isShooting)
             {
@@ -128,7 +133,7 @@ public class CliffMech : MonoBehaviour
             if (isDashing && startedDash)
             {
                 var dashDir = bossSprite.flipX ? 1 : -1;
-                RaycastHit2D wallCheck = Physics2D.Raycast(transform.position, new Vector2(dashDir, 0), dashInFrontDetection, LayerMask.GetMask("Ground", "InvisibleBounds"));
+                RaycastHit2D wallCheck = Physics2D.Raycast(transform.position, new Vector2(dashDir, 0), dashInFrontDetection, LayerMask.GetMask("Ground", "InvisibleBounds", "ArenaWalls"));
                 if (wallCheck)
                 {
                     StartCoroutine(StopDash());

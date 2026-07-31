@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 using UnityEngine.Rendering.Universal;
@@ -13,10 +14,14 @@ public class CliffCutscene : MonoBehaviour
     private Rigidbody2D druidRig;
     private Animator druidAnimator;
     private Transform druidTransform;
+    private DruidUI druidUI;
     private DruidFrameWork DF;
     [SerializeField] private GameObject boss;
     [SerializeField] private GameObject helicopter;
+    [SerializeField] private GameObject wallhelicopter;
+    [SerializeField] private GameObject wall;
     [SerializeField] private GameObject dropOffPos;
+    [SerializeField] private GameObject wallDropOffPos;
     [SerializeField] private GameObject finalMoveToPos;
     private Rigidbody2D bossRig;
     private BoxCollider2D bossCollider;
@@ -29,7 +34,8 @@ public class CliffCutscene : MonoBehaviour
     private bool inEndCutscene = false;
     private SpriteRenderer bossSprite;
     [SerializeField] private float holdDistance = 5f;
-    GameObject player;
+    private TextMeshProUGUI saveText;
+    private GameObject player;
 
     private void Start()
     {
@@ -41,6 +47,7 @@ public class CliffCutscene : MonoBehaviour
             druidAnimator = player.GetComponent<Animator>();
             DGF = player.GetComponent<DruidGrowFramework>();
             druidRig = player.GetComponent<Rigidbody2D>();
+            druidUI = player.GetComponent<DruidUI>();
         }
         if (boss != null)
         {
@@ -69,56 +76,59 @@ public class CliffCutscene : MonoBehaviour
     {
         if (inEndCutscene) return;
         DruidFrameWork.inCutscene = true;
-        druidAnimator.SetTrigger("Reset");
+        inEndCutscene = true;
+        druidRig.linearVelocity = Vector2.zero;
+        druidAnimator.SetTrigger("CutsceneDie");
         DGF.DeGrowAllPlants();
         CutsceneBars.Instance.CutsceneBarsStart();
-        StartCoroutine(CliffThrowCutscene());
+        StartCoroutine(CliffBlackOut());
     }
 
-    private IEnumerator CliffThrowCutscene()
+    private IEnumerator CliffBlackOut()
     {
-        var druidDir = boss.transform.position.x - druidTransform.position.x;
-        if (druidDir < 0)
+        float t = 0;
+        float startOrtho = Camera.main.orthographicSize;
+        ppc.assetsPPU = ppc.assetsPPU;
+        ppc.enabled = false;
+        druidRig.constraints = RigidbodyConstraints2D.FreezeAll;
+        while (t < 0.5f)
         {
-            bossSprite.flipX = false;
-        }
-        else bossSprite.flipX = true;
-        float directionFacing = bossSprite.flipX? -1 : 1;
-
-        while (Mathf.Abs(druidDir) > 0.1f)
-        {
-            druidDir = boss.transform.position.x - druidTransform.position.x;
-            bossRig.linearVelocityX = cliffMech.movementSpeed * directionFacing;
+            t += Time.deltaTime;
+            Camera.main.orthographicSize = Mathf.Lerp(startOrtho, 2.5f, t / 0.5f);
             yield return null;
         }
-
-        Debug.Log("finished Moving to Druid");
-        bool pickedUp = false;
-        bossRig.linearVelocity = Vector2.zero;
-        while (Mathf.Abs(boss.transform.position.x - mechMovePos.position.x) > 0.1)
+        ppc.assetsPPU = 12;
+        yield return new WaitForSeconds(2.5f);
+        TransitionManager.Instance.transitions.SetTrigger("Start");
+        yield return new WaitForSeconds(5f);
+        saveText = GameObject.Find("SaveText").GetComponent<TextMeshProUGUI>();
+        saveText.enabled = true;
+        saveText.maxVisibleCharacters = 0;
+        for (int i = 0; i < saveText.text.Length; i++)
         {
-            druidRig.bodyType = RigidbodyType2D.Static;
-            if (pickedUp == false)
+            saveText.maxVisibleCharacters += 1;
+            if (saveText.text[i] == '.' || saveText.text[i] == ',' || saveText.text[i] == '!' || saveText.text[i] == '?' || saveText.text[i] == '-')
             {
-                druidDir = boss.transform.position.x - druidTransform.position.x;
-                if (druidDir < 0)
-                {
-                    bossSprite.flipX = false;
-                }
-                else bossSprite.flipX = true;
-                directionFacing = bossSprite.flipX ? 1 : -1;
+                yield return new WaitForSeconds(0.7f);
             }
-            bossRig.linearVelocityX = cliffMech.movementSpeed * directionFacing;
-            var offset = holdDistance * directionFacing;
-            druidTransform.position = new Vector2(boss.transform.position.x + offset, boss.transform.position.y);
-            pickedUp = true;
-            yield return null;
-        } 
-        yield return new WaitForSeconds(1f);
-        druidRig.bodyType = RigidbodyType2D.Dynamic;
-        DruidFrameWork.inCutscene = false;
+            else
+            {
+                yield return new WaitForSeconds(0.2f);
+            }
+        }
+
+        yield return new WaitForSeconds(5f);
+        for (int i = saveText.text.Length; i < 0; i--)
+        {
+            saveText.maxVisibleCharacters -= 1;
+
+            yield return new WaitForSeconds(0.1f);
+        }
+        yield return new WaitForSeconds(0.5f);
+        
     }
-    
+
+
     private IEnumerator CliffCutsceneRoutine()
     {
         druidAnimator.SetTrigger("Reset");
@@ -146,7 +156,7 @@ public class CliffCutscene : MonoBehaviour
         {
             t += Time.deltaTime;
             float k = t / 0.75f;
-            helicopter.transform.position = new Vector3(Mathf.Lerp(startingHelicopterPosition.x, dropOffPos.transform.position.x, t/1.5f), helicopter.transform.position.y);
+            helicopter.transform.position = new Vector3(Mathf.Lerp(startingHelicopterPosition.x, dropOffPos.transform.position.x, t / 1.5f), helicopter.transform.position.y);
             k = 1f - Mathf.Cos(k * Mathf.PI * 0.5f);
 
             Camera.main.orthographicSize = Mathf.Lerp(startOrtho, zoomedOutSize, k);
@@ -158,9 +168,10 @@ public class CliffCutscene : MonoBehaviour
             yield return null;
         }
         t = 0;
+        ppc.assetsPPU = endPPU;
         bossCollider.enabled = true;
         boss.transform.parent = null;
-        StartCoroutine(HelicopterMove());
+        StartCoroutine(HelicopterMove(helicopter));
         bossRig.bodyType = RigidbodyType2D.Dynamic;
         bossRig.gravityScale = 4;
         currentCamPos = Camera.main.transform.position;
@@ -169,13 +180,32 @@ public class CliffCutscene : MonoBehaviour
             t += Time.deltaTime;
             float k = t / 0.5f;
             float newX = Mathf.Lerp(currentCamPos.x, boss.transform.position.x, k);
-            float newY = Mathf.Lerp(currentCamPos.y, boss.transform.position.y - 3, k);
+            float newY = Mathf.Lerp(currentCamPos.y, boss.transform.position.y - 1.5f, k);
             Camera.main.transform.position = new Vector3(newX, newY, currentCamPos.z);
             yield return null;
         }
-        ppc.assetsPPU = endPPU;
+        t = 0;
         followPlayer.ScreenShake(0.1f, 0.5f);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.5f);
+        var wallHelicopterPos = wallhelicopter.transform.position;
+        while (t < 2f)
+        {
+            t += Time.deltaTime;
+            wallhelicopter.transform.position = new Vector3(Mathf.Lerp(wallHelicopterPos.x, wallDropOffPos.transform.position.x, t / 2f), wallhelicopter.transform.position.y);
+            yield return null;
+        }
+        StartCoroutine(HelicopterMove(wallhelicopter));
+        Rigidbody2D wallRig = wall.GetComponent<Rigidbody2D>();
+        BoxCollider2D wallCollider = wall.GetComponent<BoxCollider2D>();
+        wallCollider.enabled = true;
+        wall.transform.parent = null;
+        wallRig.gravityScale = 4f;
+        t = 0;
+        yield return new WaitForSeconds(0.5f);
+        followPlayer.ScreenShake(0.1f, 0.4f);
+
+        yield return new WaitForSeconds(1.6f);
+        wallRig.constraints = RigidbodyConstraints2D.FreezeAll;
         druidAnimator.SetTrigger("StaffSlam");
         currentCamPos = Camera.main.transform.position;
         t = 0;
@@ -203,14 +233,14 @@ public class CliffCutscene : MonoBehaviour
         cliffMech.enabled = true;
     }
 
-    private IEnumerator HelicopterMove()
+    private IEnumerator HelicopterMove(GameObject helicopter)
     {
         float t = 0;
         var helicopterStartingPos = helicopter.transform.position;
         while (t < 4.5f)
         {
             t += Time.deltaTime;
-            helicopter.transform.position = new Vector2(Mathf.Lerp(helicopterStartingPos.x, finalMoveToPos.transform.position.x, t/4.5f), helicopter.transform.position.y);
+            helicopter.transform.position = new Vector2(Mathf.Lerp(helicopterStartingPos.x, finalMoveToPos.transform.position.x, t / 4.5f), helicopter.transform.position.y);
             yield return null;
         }
         Destroy(helicopter);

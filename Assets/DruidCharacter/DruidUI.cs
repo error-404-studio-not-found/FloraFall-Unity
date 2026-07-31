@@ -129,7 +129,7 @@ public class DruidUI : MonoBehaviour, IDamageAble
     {
         if (!dead)
         {
-            if (!hitImmune)
+            if (!hitImmune && !DruidFrameWork.inCutscene)
             {
                 hitImmune = true;
                 health -= damage;
