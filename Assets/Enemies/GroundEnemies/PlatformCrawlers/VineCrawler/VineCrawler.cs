@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 public class VineCrawler : MonoBehaviour, IEnemy, IGrowableEnemy
 {
-    Rigidbody2D crawlerRig;
+    private Rigidbody2D crawlerRig;
     [SerializeField] private float crawlSpeed = 1f;
     public bool CantGrow => cantGrow;
     private bool cantGrow = false;
@@ -13,10 +13,12 @@ public class VineCrawler : MonoBehaviour, IEnemy, IGrowableEnemy
     public bool FlyingEnemy => false;
     private bool isLerping = false;
     public bool IsLerping => isLerping;
+
     public void SetLerp(bool value)
     {
         isLerping = value;
     }
+
     public bool candie = false;
     public bool isgrown = false;
     public bool CanDie => candie;
@@ -32,22 +34,22 @@ public class VineCrawler : MonoBehaviour, IEnemy, IGrowableEnemy
     private bool isPaused = false;
     private Vector2 startpos;
     public static bool canMove = true;
-    SpriteRenderer spriteRenderer;
-    Animator vineCrawlerAnimator;
+    private SpriteRenderer spriteRenderer;
+    private Animator vineCrawlerAnimator;
     [SerializeField] private bool right = true;
-    bool shotdb = false;
+    private bool shotdb = false;
     [SerializeField] private Transform bulletspawn;
     [SerializeField] private GameObject Bullet;
     [SerializeField] private float bulletSpeed = 2f;
-    Animator animator;
+    private Animator animator;
 
-    void Start()
+    private void Start()
     {
-       crawlerRig = GetComponent<Rigidbody2D>(); 
-       spriteRenderer = GetComponent<SpriteRenderer>();
-       enemyDamage = GetComponent<EnemyDamage>();
-       startpos = transform.position;
-       vineCrawlerAnimator = GetComponent<Animator>();
+        crawlerRig = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        enemyDamage = GetComponent<EnemyDamage>();
+        startpos = transform.position;
+        vineCrawlerAnimator = GetComponent<Animator>();
         animator = GetComponent<Animator>();
     }
 
@@ -69,7 +71,7 @@ public class VineCrawler : MonoBehaviour, IEnemy, IGrowableEnemy
             else
             {
                 spriteRenderer.flipX = false;
-                crawlerRig.linearVelocityY= -crawlSpeed;
+                crawlerRig.linearVelocityY = -crawlSpeed;
                 if (distanceFromStart <= -movedistance)
                 {
                     StartCoroutine(PauseAtEnd(true));
@@ -80,8 +82,8 @@ public class VineCrawler : MonoBehaviour, IEnemy, IGrowableEnemy
         {
             crawlerRig.linearVelocity = Vector2.zero;
         }
-
     }
+
     private IEnumerator PauseAtEnd(bool turnRight) // pauses at the end of the movement
     {
         isPaused = true;
@@ -92,7 +94,7 @@ public class VineCrawler : MonoBehaviour, IEnemy, IGrowableEnemy
         normalDirection = turnRight;
         isPaused = false;
     }
-    
+
     public void Grow()
     {
         if (!enemyDamage.dead)
@@ -145,7 +147,7 @@ public class VineCrawler : MonoBehaviour, IEnemy, IGrowableEnemy
         isgrown = false;
     }
 
-    void Update()
+    private void Update()
     {
         vineCrawlerAnimator.SetFloat("Velocity", Mathf.Abs(crawlerRig.linearVelocityY));
         if (isgrown && !shotdb && !cantGrow)
@@ -188,7 +190,7 @@ public class VineCrawler : MonoBehaviour, IEnemy, IGrowableEnemy
 
             //death
 
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.85f);
             if (BulletClone)
             {
                 Animator bulletAnimator = BulletClone.GetComponent<Animator>();
