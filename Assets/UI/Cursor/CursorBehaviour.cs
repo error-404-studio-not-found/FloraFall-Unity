@@ -2,29 +2,29 @@ using UnityEngine;
 
 public class CursorBehaviour : MonoBehaviour
 {
+    private Animator animator;
+    private RectTransform rectTransform;
 
-    Animator animator;
-    void Start()
+    private void Start()
     {
         animator = GetComponent<Animator>();
         Cursor.visible = false;
+        rectTransform = GetComponent<RectTransform>();
     }
 
-    
-    void Update()
+    private void Update()
     {
         Vector3 cursorPos = Input.mousePosition;
-        Vector3 worldPos = Camera.main.ScreenToWorldPoint(cursorPos);
-        gameObject.transform.position = new Vector3(worldPos.x, worldPos.y, 10);
+        rectTransform.position = new Vector3(cursorPos.x, cursorPos.y, 10);
         Cursor.visible = false;
 
         if (Input.GetMouseButton(0))
         {
             animator.SetTrigger("Click");
-        } else
-        { 
+        }
+        else
+        {
             animator.SetTrigger("Release");
         }
-
     }
 }

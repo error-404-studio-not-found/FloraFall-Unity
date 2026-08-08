@@ -29,6 +29,7 @@ public class DruidFrameWork : MonoBehaviour
 
     public float druidspeed;
     public static bool canjump = true;
+    public static bool climbing = false;
     public static bool canmove = true;
     public Transform druidtransform;
     [SerializeField] private ParticleSystem walkingParticle;
@@ -129,93 +130,100 @@ public class DruidFrameWork : MonoBehaviour
 
             if (canmove && !isStunned)
             {
-                // ---- WALKING ----
-                if (!isGrounded)
+                if (!climbing)
                 {
-                    animator.SetFloat("YVelo", druidrb.linearVelocityY);
-                }
-                else animator.SetFloat("YVelo", 0);
-
-                if (!isAttacking) //checks if not attacking
-                {
-                    speedx = Input.GetAxisRaw("Horizontal");
-                    druidrb.linearVelocityX = speedx * druidspeed; //sets velo to your movement direction times speed
-
-                    if (isGrounded)
+                    // ---- WALKING ----
+                    if (!isGrounded)
                     {
-                        animator.SetFloat("XVelo", Mathf.Abs(speedx));
+                        animator.SetFloat("YVelo", druidrb.linearVelocityY);
+                    }
+                    else animator.SetFloat("YVelo", 0);
+
+                    if (!isAttacking) //checks if not attacking
+                    {
+                        speedx = Input.GetAxisRaw("Horizontal");
+                        druidrb.linearVelocityX = speedx * druidspeed; //sets velo to your movement direction times speed
+
+                        if (isGrounded)
+                        {
+                            animator.SetFloat("XVelo", Mathf.Abs(speedx));
+                        }
+                        else
+                        {
+                            animator.SetFloat("XVelo", 0f);
+                        }
                     }
                     else
                     {
                         animator.SetFloat("XVelo", 0f);
                     }
-                }
-                else
-                {
-                    animator.SetFloat("XVelo", 0f);
-                }
 
-                // ---- FLIP X LOGIC AND UI LOGIC ----
-                if (speedx > 0f) //forwards
-                {
-                    druidspriterender.flipX = false;
-                }
-                else if (speedx < 0f) //backwards
-                {
-                    druidspriterender.flipX = true;
-                }
-
-                // ---- WALKING PARTICLES ----
-                if (speedx > 0f || speedx < 0f)
-                {
-                    if (isGrounded)
+                    // ---- FLIP X LOGIC AND UI LOGIC ----
+                    if (speedx > 0f) //forwards
                     {
-                        if (!isAttacking)
+                        druidspriterender.flipX = false;
+                    }
+                    else if (speedx < 0f) //backwards
+                    {
+                        druidspriterender.flipX = true;
+                    }
+
+                    // ---- WALKING PARTICLES ----
+                    if (speedx > 0f || speedx < 0f)
+                    {
+                        if (isGrounded)
                         {
-                            walkingParticle.Emit(1);
+                            if (!isAttacking)
+                            {
+                                walkingParticle.Emit(1);
+                            }
+                        }
+                    }
+
+                    // ---- JUMP ANIMATIONS ----
+                    if (!isGrounded)
+                    {
+                        if (druidrb.linearVelocityY > 0.5f)
+                        {
+                            animator.SetTrigger("Jump");
+                        }
+                    }
+
+                    // ---- GROUND CHECK ----
+                    float rayLength = 0.2f;
+                    LayerMask platformLayer = LayerMask.GetMask("Platform");
+
+                    RaycastHit2D hit = Physics2D.Raycast(groundCheck.position, Vector2.down, rayLength, platformLayer);
+                    bool touchingPlatform = hit.collider != null;
+                    bool validPlatformGround = touchingPlatform && druidrb.linearVelocityY <= 0f;
+
+                    bool touchingGround = Physics2D.OverlapCircle(groundCheck.position, checkRadius, LayerMask.GetMask("Ground"));
+                    isGrounded = touchingGround || validPlatformGround;
+                    animator.SetBool("IsGrounded", isGrounded);
+
+                    // ---- GROUND PARTICLE COLOUR CHANGER ----
+                    RaycastHit2D groundTag = Physics2D.Raycast(groundCheck.position, Vector2.down, rayLength, LayerMask.GetMask("Ground"));
+                    ParticleSystem.MainModule walkMain;
+                    ParticleSystem.MainModule fallMain;
+                    fallMain = fallingParticle.main;
+                    walkMain = walkingParticle.main;
+                    if (groundTag)
+                    {
+                        if (groundTag.collider.gameObject.CompareTag("Grass"))
+                        {
+                            fallMain.startColor = new Color(20f / 255f, 77f / 255f, 1f / 255f, 1f);
+                            walkMain.startColor = new Color(20f / 255f, 77f / 255f, 1f / 255f, 1f);
+                        }
+                        else if (groundTag.collider.gameObject.CompareTag("Snow"))
+                        {
+                            fallMain.startColor = Color.white;
+                            walkMain.startColor = Color.white;
                         }
                     }
                 }
-
-                // ---- JUMP ANIMATIONS ----
-                if (!isGrounded)
+                //---- CLIMBING ----
+                else
                 {
-                    if (druidrb.linearVelocityY > 0.5f)
-                    {
-                        animator.SetTrigger("Jump");
-                    }
-                }
-
-                // ---- GROUND CHECK ----
-                float rayLength = 0.2f;
-                LayerMask platformLayer = LayerMask.GetMask("Platform");
-
-                RaycastHit2D hit = Physics2D.Raycast(groundCheck.position, Vector2.down, rayLength, platformLayer);
-                bool touchingPlatform = hit.collider != null;
-                bool validPlatformGround = touchingPlatform && druidrb.linearVelocityY <= 0f;
-
-                bool touchingGround = Physics2D.OverlapCircle(groundCheck.position, checkRadius, LayerMask.GetMask("Ground"));
-                isGrounded = touchingGround || validPlatformGround;
-                animator.SetBool("IsGrounded", isGrounded);
-
-                // ---- GROUND PARTICLE COLOUR CHANGER ----
-                RaycastHit2D groundTag = Physics2D.Raycast(groundCheck.position, Vector2.down, rayLength, LayerMask.GetMask("Ground"));
-                ParticleSystem.MainModule walkMain;
-                ParticleSystem.MainModule fallMain;
-                fallMain = fallingParticle.main;
-                walkMain = walkingParticle.main;
-                if (groundTag)
-                {
-                    if (groundTag.collider.gameObject.CompareTag("Grass"))
-                    {
-                        fallMain.startColor = new Color(20f / 255f, 77f / 255f, 1f / 255f, 1f);
-                        walkMain.startColor = new Color(20f / 255f, 77f / 255f, 1f / 255f, 1f);
-                    }
-                    else if (groundTag.collider.gameObject.CompareTag("Snow"))
-                    {
-                        fallMain.startColor = Color.white;
-                        walkMain.startColor = Color.white;
-                    }
                 }
             }
         }
@@ -264,6 +272,11 @@ public class DruidFrameWork : MonoBehaviour
 
                 if (Input.GetKeyUp(KeyCode.Space) && isJumping)
                 {
+                    if (climbing)
+                    {
+                        climbing = false;
+                    }
+
                     if (druidrb.linearVelocityY > 0f)
                     {
                         druidrb.linearVelocityY *= variableJumpMultiplier;

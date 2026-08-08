@@ -86,6 +86,7 @@ public class CliffCutscene : MonoBehaviour
 
     private IEnumerator CliffBlackOut()
     {
+        DGF.DeGrowAllPlants();
         float t = 0;
         float startOrtho = Camera.main.orthographicSize;
         ppc.assetsPPU = ppc.assetsPPU;
@@ -125,9 +126,7 @@ public class CliffCutscene : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
         yield return new WaitForSeconds(0.5f);
-        
     }
-
 
     private IEnumerator CliffCutsceneRoutine()
     {
