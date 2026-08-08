@@ -26891,6 +26891,9 @@ MonoBehaviour:
   dropOffPos: {fileID: 1002721376}
   wallDropOffPos: {fileID: 1691773924}
   finalMoveToPos: {fileID: 1619445275}
+  endSceneToTp:
+    _sceneAsset: {fileID: 102900000, guid: c0bd9c0998b0ce747b54007c8e97d05f, type: 3}
+    _sceneName: FloraRespite
   zoomedOutSize: 6
   endPPU: 30
   firstCamLerpPos: {fileID: 1087965872}

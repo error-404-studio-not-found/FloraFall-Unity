@@ -8,7 +8,7 @@ public class Speak : MonoBehaviour, IDialogue
 {
     private bool interacting = false;
     public bool isInteracting => interacting;
-    [SerializeField] private float typingSpeed = 0.1f;
+    private float typingSpeed = 0.05f;
 
     public string[] text;
     private Image dialogueBox;
@@ -47,7 +47,6 @@ public class Speak : MonoBehaviour, IDialogue
         NPCTransform = GetComponent<Transform>();
         NPCSprite = GetComponent<SpriteRenderer>();
 
-      
         if (player != null)
         {
             druidAnimator = player.GetComponent<Animator>();
@@ -75,12 +74,10 @@ public class Speak : MonoBehaviour, IDialogue
 
         choice1Button.onClick.AddListener(Choice1Pressed);
         choice2Button.onClick.AddListener(Choice2Pressed);
-
     }
 
     private void Update()
     {
-
         if (textOn == true && skippedText == false && canSkip)
         {
             if (Input.GetKeyDown(KeyCode.E))
@@ -97,12 +94,13 @@ public class Speak : MonoBehaviour, IDialogue
             if (druidTransform.position.x < NPCTransform.position.x)
             {
                 NPCSprite.flipX = true;
-
-            } else if (druidTransform.position.x > NPCTransform.position.x)
+            }
+            else if (druidTransform.position.x > NPCTransform.position.x)
             {
                 NPCSprite.flipX = false;
             }
-        } else if (flipDistance < rangeOfSight)
+        }
+        else if (flipDistance < rangeOfSight)
         {
             NPCSprite.flipX = false;
         }
@@ -116,6 +114,7 @@ public class Speak : MonoBehaviour, IDialogue
             dialogueRoutine = StartCoroutine(InteractingCoroutine());
         }
     }
+
     public void Choice1Pressed()
     {
         selectedChoice = 1;
@@ -168,7 +167,7 @@ public class Speak : MonoBehaviour, IDialogue
             dialogueBox.enabled = true;
             textBox.text = text[i];
             textBox.maxVisibleCharacters = 0;
-          
+
             druidAnimator.SetFloat("XVelo", 0f);
             canSkip = true;
             for (int j = 0; j < textBox.text.Length; j++)
@@ -247,7 +246,7 @@ public class Speak : MonoBehaviour, IDialogue
                         break;
                     }
                 }
-                else if (selectedChoice == 2) 
+                else if (selectedChoice == 2)
                 {
                     textBox.maxVisibleCharacters = 0;
                     textBox.text = leaveText;
@@ -269,11 +268,9 @@ public class Speak : MonoBehaviour, IDialogue
                             textBox.maxVisibleCharacters = leaveText.Length;
                             break;
                         }
-                       
                     }
                     break;
                 }
-            
             }
             selectedChoice = 0;
             yield return new WaitForSeconds(1.5f);
@@ -286,7 +283,7 @@ public class Speak : MonoBehaviour, IDialogue
         textOn = false;
         yield return new WaitForSeconds(0.1f);
         skippedText = false;
-      
+
         textBox.text = "";
         npcName.text = "";
         dialogueAnimator.SetTrigger("Leave");
@@ -306,7 +303,7 @@ public class Speak : MonoBehaviour, IDialogue
             }
 
             ResetDialogue();
-        } 
+        }
     }
 
     private void ResetDialogue()

@@ -102,10 +102,14 @@ public class ChunkLoader : MonoBehaviour
      * This coroutine loads a chunk and unloads the previous one teleporting the player to the set spawn point in the doorscripts inspector
      */
 
-    public IEnumerator TeleportPlayer(Collider2D player, bool cellingDoor, float upwardsJumpForce, SceneField targetChunk, string targetSpawnID)
+    public IEnumerator TeleportPlayer(Collider2D player, bool cellingDoor, float upwardsJumpForce, SceneField targetChunk, string targetSpawnID, bool startingFade)
     {
         DruidFrameWork.Transitioning = true;
-        fade.SetTrigger("Start");
+        if (startingFade)
+        {
+            fade.SetTrigger("Start");
+        }
+
         DruidUI UI = player.GetComponent<DruidUI>();
         DruidFrameWork.canmove = false;
         Rigidbody2D playerRig = player.GetComponent<Rigidbody2D>();

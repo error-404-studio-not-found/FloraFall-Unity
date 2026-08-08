@@ -23,6 +23,7 @@ public class CliffCutscene : MonoBehaviour
     [SerializeField] private GameObject dropOffPos;
     [SerializeField] private GameObject wallDropOffPos;
     [SerializeField] private GameObject finalMoveToPos;
+    [SerializeField] private SceneField endSceneToTp;
     private Rigidbody2D bossRig;
     private BoxCollider2D bossCollider;
     [SerializeField] private float zoomedOutSize = 1.5f;
@@ -101,7 +102,7 @@ public class CliffCutscene : MonoBehaviour
         ppc.assetsPPU = 12;
         yield return new WaitForSeconds(2.5f);
         TransitionManager.Instance.transitions.SetTrigger("Start");
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(4f);
         saveText = GameObject.Find("SaveText").GetComponent<TextMeshProUGUI>();
         saveText.enabled = true;
         saveText.maxVisibleCharacters = 0;
@@ -110,22 +111,36 @@ public class CliffCutscene : MonoBehaviour
             saveText.maxVisibleCharacters += 1;
             if (saveText.text[i] == '.' || saveText.text[i] == ',' || saveText.text[i] == '!' || saveText.text[i] == '?' || saveText.text[i] == '-')
             {
-                yield return new WaitForSeconds(0.7f);
+                yield return new WaitForSeconds(0.35f);
             }
             else
             {
-                yield return new WaitForSeconds(0.2f);
+                yield return new WaitForSeconds(0.05f);
             }
         }
 
-        yield return new WaitForSeconds(5f);
-        for (int i = saveText.text.Length; i < 0; i--)
+        yield return new WaitForSeconds(4f);
+        Debug.Log("deletingText");
+        for (int i = saveText.text.Length; i > 0; i--)
         {
             saveText.maxVisibleCharacters -= 1;
 
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.05f);
         }
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
+        druidUI.hitImmune = false;
+        DruidFrameWork.inCutscene = false;
+        inEndCutscene = false;
+        druidUI.health = 4;
+        druidUI.spirits = 5;
+        druidAnimator.SetTrigger("WakeUp");
+        DruidFrameWork.canmove = true;
+        DruidFrameWork.canjump = false;
+        druidRig.constraints = RigidbodyConstraints2D.None;
+        druidRig.constraints = RigidbodyConstraints2D.FreezeRotation;
+        DF.ChangeParticleColours(new Color(20f / 255f, 77f / 255f, 1f / 255f, 1f));
+        Collider2D playerCollider = player.GetComponent<Collider2D>();
+        StartCoroutine(ChunkLoader.Instance.TeleportPlayer(playerCollider, false, 0, endSceneToTp, "UpperSpawn", false));
     }
 
     private IEnumerator CliffCutsceneRoutine()

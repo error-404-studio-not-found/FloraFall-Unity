@@ -165,7 +165,7 @@ public class VineCrawler : MonoBehaviour, IEnemy, IGrowableEnemy
         {
             animator.SetTrigger("Shoot");
 
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.4f);
 
             //Get Bullets components/add components
             GameObject BulletClone = Instantiate(Bullet, bulletspawn.transform.position, bulletspawn.transform.rotation);

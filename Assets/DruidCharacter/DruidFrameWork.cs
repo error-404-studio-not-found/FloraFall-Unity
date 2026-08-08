@@ -203,21 +203,16 @@ public class DruidFrameWork : MonoBehaviour
 
                     // ---- GROUND PARTICLE COLOUR CHANGER ----
                     RaycastHit2D groundTag = Physics2D.Raycast(groundCheck.position, Vector2.down, rayLength, LayerMask.GetMask("Ground"));
-                    ParticleSystem.MainModule walkMain;
-                    ParticleSystem.MainModule fallMain;
-                    fallMain = fallingParticle.main;
-                    walkMain = walkingParticle.main;
+
                     if (groundTag)
                     {
                         if (groundTag.collider.gameObject.CompareTag("Grass"))
                         {
-                            fallMain.startColor = new Color(20f / 255f, 77f / 255f, 1f / 255f, 1f);
-                            walkMain.startColor = new Color(20f / 255f, 77f / 255f, 1f / 255f, 1f);
+                            ChangeParticleColours(new Color(20f / 255f, 77f / 255f, 1f / 255f, 1f));
                         }
                         else if (groundTag.collider.gameObject.CompareTag("Snow"))
                         {
-                            fallMain.startColor = Color.white;
-                            walkMain.startColor = Color.white;
+                            ChangeParticleColours(new Color(255f, 255f, 255f));
                         }
                     }
                 }
@@ -378,6 +373,16 @@ public class DruidFrameWork : MonoBehaviour
      * Changecollidersize will change the druids collider to a new size and a new offset useful for transformations
      * Stun will stun the player
      */
+
+    public void ChangeParticleColours(Color color)
+    {
+        ParticleSystem.MainModule walkMain;
+        ParticleSystem.MainModule fallMain;
+        fallMain = fallingParticle.main;
+        walkMain = walkingParticle.main;
+        fallMain.startColor = color;
+        walkMain.startColor = color;
+    }
 
     public void Stun()
     {

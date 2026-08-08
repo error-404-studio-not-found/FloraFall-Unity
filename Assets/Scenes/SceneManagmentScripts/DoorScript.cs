@@ -4,7 +4,7 @@ public class DoorScript : MonoBehaviour
 {
     public SceneField targetChunk;
     public string targetSpawnID;
-  
+
     [SerializeField] private bool interactDoor = false;
     [SerializeField] private bool cellingDoor = false;
     [SerializeField] private float upwardsJumpForce = 3f;
@@ -21,6 +21,6 @@ public class DoorScript : MonoBehaviour
     public void TeleportPlayer(Collider2D player)
     {
         Debug.Log("Teleporting");
-        StartCoroutine(ChunkLoader.Instance.TeleportPlayer(player, cellingDoor, upwardsJumpForce, targetChunk, targetSpawnID));
+        StartCoroutine(ChunkLoader.Instance.TeleportPlayer(player, cellingDoor, upwardsJumpForce, targetChunk, targetSpawnID, true));
     }
 }

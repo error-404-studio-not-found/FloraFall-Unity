@@ -61,6 +61,7 @@ TagManager:
   - FloatingFlower
   - NoLedgeClimb
   - VineCrawler
+  - ClimbingState
   layers:
   - Default
   - TransparentFX
@@ -84,7 +85,7 @@ TagManager:
   - GroundCollider
   - InvisibleBounds
   - ArenaWalls
-  - 
+  - ClimbingPos
   - 
   - 
   - 
