@@ -55,7 +55,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _PixelScale: 32
-    - _WindIntensity: 0.5
+    - _WindIntensity: 0.3
     m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1

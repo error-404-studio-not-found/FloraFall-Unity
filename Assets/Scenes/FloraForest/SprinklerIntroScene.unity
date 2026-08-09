@@ -26944,9 +26944,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 716754430}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6343c29756271084e85a78977a7111a0, type: 3}
+  m_Script: {fileID: 11500000, guid: eaae8d04703c4124b9b3c73028aafd41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Spikes
+  knockBack: 1
 --- !u!212 &716754434
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -36097,9 +36098,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1274448667}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6343c29756271084e85a78977a7111a0, type: 3}
+  m_Script: {fileID: 11500000, guid: eaae8d04703c4124b9b3c73028aafd41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Spikes
+  knockBack: 1
 --- !u!212 &1274448671
 SpriteRenderer:
   m_ObjectHideFlags: 0
