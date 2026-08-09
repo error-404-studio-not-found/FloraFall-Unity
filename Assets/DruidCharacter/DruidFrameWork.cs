@@ -30,12 +30,14 @@ public class DruidFrameWork : MonoBehaviour
     public float druidspeed;
     public static bool canjump = true;
     public static bool climbing = false;
+    public static bool canJumpOffClimb = false;
     public static bool canmove = true;
     public Transform druidtransform;
     [SerializeField] private ParticleSystem walkingParticle;
     [SerializeField] private GameObject druid;
     [SerializeField] private ParticleSystem fallingParticle;
     [SerializeField] private float gravityScale = 0.5f;
+    [SerializeField] private float climbSpeed = 1.5f;
     public static bool inCutscene = false;
 
     // ---- CUSTOM JUMP PHYSICS ----
@@ -43,7 +45,7 @@ public class DruidFrameWork : MonoBehaviour
 
     private float jumpBufferCounter;
 
-    private bool isJumping;
+    public bool isJumping;
     public bool isGrounded;
     public bool gravityjump = false;
     private float jumpheight = 7.5f;
@@ -219,6 +221,11 @@ public class DruidFrameWork : MonoBehaviour
                 //---- CLIMBING ----
                 else
                 {
+                    var speedY = Input.GetAxisRaw("Vertical");
+                    druidrb.gravityScale = 0f;
+                    druidrb.linearVelocity = Vector2.zero;
+
+                    druidrb.linearVelocityY = speedY * climbSpeed;
                 }
             }
         }
@@ -240,6 +247,22 @@ public class DruidFrameWork : MonoBehaviour
                 // ---- JUMP ----
 
                 // ---- BUFFER ----
+
+                // ---- Climbing Jump ----
+                if (Input.GetKeyDown(KeyCode.Space) && climbing && canJumpOffClimb)
+                {
+                    druidrb.linearVelocity = Vector2.zero;
+                    climbing = false;
+                    canJumpOffClimb = false;
+                    druidrb.constraints = RigidbodyConstraints2D.None;
+                    druidrb.constraints = RigidbodyConstraints2D.FreezeRotation;
+                    druidrb.gravityScale = 2.5f;
+                    druidrb.linearVelocityY = jumpheight;
+
+                    isJumping = true;
+                    hasJumped = true;
+                }
+
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     jumpBufferCounter = jumpBufferTime;
@@ -267,11 +290,6 @@ public class DruidFrameWork : MonoBehaviour
 
                 if (Input.GetKeyUp(KeyCode.Space) && isJumping)
                 {
-                    if (climbing)
-                    {
-                        climbing = false;
-                    }
-
                     if (druidrb.linearVelocityY > 0f)
                     {
                         druidrb.linearVelocityY *= variableJumpMultiplier;
@@ -305,7 +323,7 @@ public class DruidFrameWork : MonoBehaviour
                 wasGroundedLastFrame = isGrounded;
 
                 // ---- FASTER JUMP FALL ----
-                if (!istransforming)
+                if (!istransforming && !climbing)
                 {
                     if (canjump == false)
                     {
@@ -338,7 +356,7 @@ public class DruidFrameWork : MonoBehaviour
                 }
 
                 // ---- TRANSFORMATIONS INPUT ----
-                if (Input.GetKeyDown(KeyCode.Q))
+                /*if (Input.GetKeyDown(KeyCode.Q))
                 {
                     if (!isTransformed)
                     {
@@ -363,7 +381,7 @@ public class DruidFrameWork : MonoBehaviour
                             }
                         }
                     }
-                }
+                }*/
             }
         }
     }

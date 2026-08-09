@@ -9806,13 +9806,14 @@ GameObject:
   - component: {fileID: 478558964}
   - component: {fileID: 478558963}
   - component: {fileID: 478558962}
+  - component: {fileID: 478558965}
   m_Layer: 22
   m_Name: ClimbSpot
   m_TagString: ClimbingState
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!61 &478558962
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9926,12 +9927,24 @@ Transform:
   m_GameObject: {fileID: 478558961}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.225, y: -13.599, z: 0}
-  m_LocalScale: {x: 1, y: 5.0154, z: 1}
+  m_LocalPosition: {x: -4.88, y: -13.45, z: 0}
+  m_LocalScale: {x: 0.111, y: 5.0154, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &478558965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478558961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cbfed4753a4c4a4d94318cf3fda266a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClimbingWals
 --- !u!1 &482173539
 GameObject:
   m_ObjectHideFlags: 0
@@ -55403,6 +55416,8 @@ MonoBehaviour:
   druid: {fileID: 1362395037}
   fallingParticle: {fileID: 1191526086}
   gravityScale: 1
+  climbSpeed: 1.5
+  isJumping: 0
   isGrounded: 0
   gravityjump: 0
   groundCheck: {fileID: 901740409}
