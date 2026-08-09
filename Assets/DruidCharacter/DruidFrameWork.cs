@@ -226,6 +226,14 @@ public class DruidFrameWork : MonoBehaviour
                     druidrb.linearVelocity = Vector2.zero;
 
                     druidrb.linearVelocityY = speedY * climbSpeed;
+                    if (Mathf.Abs(druidrb.linearVelocityY) > 0.5f)
+                    {
+                        animator.SetFloat("ClimbMoving", 0.5f);
+                    } else if (druidrb.linearVelocityY == 0)
+                    {
+                        animator.SetFloat("ClimbMoving", 0);
+                    }
+                    
                 }
             }
         }

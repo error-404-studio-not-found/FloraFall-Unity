@@ -10,12 +10,14 @@ public class ClimbingWals : MonoBehaviour
     private float grabCooldown = 0.5f;
     private bool canGrab = true;
     private DruidFrameWork DF;
+    private Animator druidAnims;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerRig = player.GetComponent<Rigidbody2D>();
         DF = player.GetComponent<DruidFrameWork>();
+        druidAnims = player.GetComponent<Animator>();
     }
 
     private void Update()
@@ -36,6 +38,17 @@ public class ClimbingWals : MonoBehaviour
                 DruidFrameWork.canJumpOffClimb = false;
                 DruidFrameWork.canjump = true;
                 DF.isJumping = false;
+                druidAnims.ResetTrigger("Jump");
+                druidAnims.ResetTrigger("StopClimbing");
+                druidAnims.ResetTrigger("ClimbWall");
+
+                druidAnims.SetFloat("XVelo", 0f);
+                druidAnims.SetFloat("YVelo", 0f);
+                druidAnims.SetFloat("ClimbMoving", 0f);
+
+                druidAnims.SetBool("IsGrounded", false);
+                druidAnims.SetTrigger("ClimbWall");
+
                 grabbedOn = true;
                 DruidFrameWork.climbing = true;
                 StartCoroutine(CanJumpCooldown());
@@ -49,6 +62,7 @@ public class ClimbingWals : MonoBehaviour
         {
             if (grabbedOn)
             {
+                druidAnims.SetTrigger("StopClimbing");
                 playerRig.constraints = RigidbodyConstraints2D.None;
                 playerRig.constraints = RigidbodyConstraints2D.FreezeRotation;
                 playerRig.gravityScale = 1.5f;
