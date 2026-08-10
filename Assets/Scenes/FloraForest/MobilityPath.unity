@@ -206,7 +206,7 @@ Transform:
   m_GameObject: {fileID: 21660597}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.41, y: -5.24, z: 0}
+  m_LocalPosition: {x: 9.539001, y: -5.24, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -37379,13 +37379,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 688340545}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.055627596, w: 0.9984516}
-  m_LocalPosition: {x: 27.11, y: 6.88, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.17920913, w: 0.983811}
+  m_LocalPosition: {x: 27.677574, y: 7.0768776, z: 0}
   m_LocalScale: {x: 18.87982, y: 48.27854, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1998912877}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 6.378}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 20.647}
 --- !u!212 &688340547
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -80249,7 +80249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParallaxLayer
   parallaxFactorX: 0.3
-  parallaxFactorY: 0.3
+  parallaxFactorY: 0
   initDelay: 1
 --- !u!1 &2111531543
 GameObject:
