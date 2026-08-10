@@ -95,11 +95,12 @@ public class MortarBullet : MonoBehaviour, IGrowablePlant
                 {
                     canGrow = false;
                     RaycastHit2D groundCheck = Physics2D.Raycast(transform.position, Vector2.down, 1f, LayerMask.GetMask("Ground", "Breakables"));
-                    if (groundCheck)
+                    if (groundCheck && groundCheck.collider.gameObject.CompareTag("Grass"))
                     {
                         Debug.Log("GroundBall");
                         StartCoroutine(Explode(false));
-                    } else
+                    }
+                    else
                     {
                         Debug.Log("AirBall");
                         StartCoroutine(Explode(true));

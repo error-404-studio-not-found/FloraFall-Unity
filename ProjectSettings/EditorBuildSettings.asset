@@ -44,6 +44,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FloraForest/MobilityPath.unity
     guid: 28e6c53957540744c97888681ef54453
+  - enabled: 1
+    path: Assets/Scenes/FloraForest/FlowerAndMobilityConnector.unity
+    guid: b2fcda9efee12204db1255c057580e1e
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

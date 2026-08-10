@@ -5,10 +5,12 @@ public class RoboticMortar : MonoBehaviour, IEnemy
 {
     //---- INTERFACE ----
     public bool FlyingEnemy => false;
+
     public bool GroundEnemy => true;
     public bool Dead => damage.dead;
     private bool isLerping = false;
     public bool IsLerping => isLerping;
+
     public void SetLerp(bool value)
     {
         isLerping = value;
@@ -23,13 +25,16 @@ public class RoboticMortar : MonoBehaviour, IEnemy
 
     //SHOOTING
     private bool isShooting = false;
+
     private bool shootCooldown = false;
     [SerializeField] private float timeBetweenShots = 7f;
     [SerializeField] private Transform shotPos;
     [SerializeField] private float shotTime = 1f;
     [SerializeField] private bool facingLeft = true;
     [SerializeField] private AnimationCurve arcCurve;
-    void Start()
+    [SerializeField] private float arcHeight = 5;
+
+    private void Start()
     {
         damage = GetComponent<EnemyDamage>();
         player = GameObject.FindGameObjectWithTag("Player");
@@ -40,7 +45,7 @@ public class RoboticMortar : MonoBehaviour, IEnemy
         }
     }
 
-    void Update()
+    private void Update()
     {
         //---- SHOOT ----
         if (!damage.dead)
@@ -53,14 +58,14 @@ public class RoboticMortar : MonoBehaviour, IEnemy
                     {
                         StartCoroutine(Shoot(-1));
                     }
-                } else
+                }
+                else
                 {
                     if (Vector2.Distance(transform.position, playerTransform.position) < activationDistance && playerTransform.position.x > transform.position.x)
                     {
                         StartCoroutine(Shoot(1));
                     }
                 }
-              
             }
         }
     }
@@ -84,10 +89,8 @@ public class RoboticMortar : MonoBehaviour, IEnemy
             druidPosToHit = new Vector2(playerTransform.position.x, druidRayDown.point.y);
         }
         else druidPosToHit = playerTransform.position;
-       
-        
+
         var startPos = transform.position;
-        var arcHeight = 5f;
 
         float time = 0f;
         while (time <= shotTime)
