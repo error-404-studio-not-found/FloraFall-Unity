@@ -62,6 +62,7 @@ TagManager:
   - NoLedgeClimb
   - VineCrawler
   - ClimbingState
+  - HummingRock
   layers:
   - Default
   - TransparentFX
