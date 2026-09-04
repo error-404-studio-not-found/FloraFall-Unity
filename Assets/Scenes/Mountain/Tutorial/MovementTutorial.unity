@@ -8139,7 +8139,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 059ee15a5ff77fe448bcfd48c217016b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Speak
-  typingSpeed: 0.1
   text: []
   rangeOfSight: 0
   reInteractIndex: 0
@@ -61723,7 +61722,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 059ee15a5ff77fe448bcfd48c217016b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Speak
-  typingSpeed: 0.1
   text: []
   rangeOfSight: 0
   reInteractIndex: 0
@@ -119260,7 +119258,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 059ee15a5ff77fe448bcfd48c217016b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Speak
-  typingSpeed: 0.1
   text: []
   rangeOfSight: 0
   reInteractIndex: 0

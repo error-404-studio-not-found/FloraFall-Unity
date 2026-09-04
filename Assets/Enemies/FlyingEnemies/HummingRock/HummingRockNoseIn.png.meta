@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: 9caa8bfaf65dc804d98641de0792d044
+guid: 3e5d82e1c9315de45893f9b25ed5eab3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4109465311249336797
-    second: HummingRockDash_0
+      213: -6815488926404444979
+    second: HummingRockNoseIn_0
   - first:
-      213: -1506310769522435807
-    second: HummingRockDash_1
+      213: -3747700328679974834
+    second: HummingRockNoseIn_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,7 +75,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 64
+    maxTextureSize: 128
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -103,7 +103,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: HummingRockDash_0
+      name: HummingRockNoseIn_0
       rect:
         serializedVersion: 2
         x: 0
@@ -118,14 +118,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: dd98ecd7de0c70930800000000000000
-      internalID: 4109465311249336797
+      spriteID: dccfd037ee48a61a0800000000000000
+      internalID: -6815488926404444979
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HummingRockDash_1
+      name: HummingRockNoseIn_1
       rect:
         serializedVersion: 2
         x: 32
@@ -140,8 +140,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 129154df552881be0800000000000000
-      internalID: -1506310769522435807
+      spriteID: e485a60486e7dfbc0800000000000000
+      internalID: -3747700328679974834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HummingRockNoseIn_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86c3f292f7d967345ac618ef8fe4b9ae
+      internalID: 115853550
       vertices: []
       indices: 
       edges: []
@@ -150,7 +172,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 115631cf460a3fe4b807e6a05be0f410
     internalID: 0
     vertices: []
     indices: 
@@ -162,8 +184,9 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":32.0,"y":32.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      HummingRockDash_0: 4109465311249336797
-      HummingRockDash_1: -1506310769522435807
+      HummingRockNoseIn_0: -6815488926404444979
+      HummingRockNoseIn_1: -3747700328679974834
+      HummingRockNoseIn_2: 115853550
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,13 +1,43 @@
 fileFormatVersion: 2
-guid: 9caa8bfaf65dc804d98641de0792d044
+guid: c71be5af312ca09469770b7d40ea8251
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4109465311249336797
-    second: HummingRockDash_0
+      213: -1557121826061705099
+    second: HummingRockDirtExplosion_0
   - first:
-      213: -1506310769522435807
-    second: HummingRockDash_1
+      213: 2691070777786868341
+    second: HummingRockDirtExplosion_1
+  - first:
+      213: 8472166294577052241
+    second: HummingRockDirtExplosion_2
+  - first:
+      213: -8587200346221619890
+    second: HummingRockDirtExplosion_3
+  - first:
+      213: 7904511973408121649
+    second: HummingRockDirtExplosion_4
+  - first:
+      213: 1686474403998576495
+    second: HummingRockDirtExplosion_5
+  - first:
+      213: -2893946291893412314
+    second: HummingRockDirtExplosion_6
+  - first:
+      213: 4730076424756980698
+    second: HummingRockDirtExplosion_7
+  - first:
+      213: -5339211027187498439
+    second: HummingRockDirtExplosion_8
+  - first:
+      213: 7548601385651481876
+    second: HummingRockDirtExplosion_9
+  - first:
+      213: 2151737113475284845
+    second: HummingRockDirtExplosion_10
+  - first:
+      213: 8231249031530746971
+    second: HummingRockDirtExplosion_11
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,7 +105,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 64
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -103,7 +133,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: HummingRockDash_0
+      name: HummingRockDirtExplosion_0
       rect:
         serializedVersion: 2
         x: 0
@@ -118,14 +148,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: dd98ecd7de0c70930800000000000000
-      internalID: 4109465311249336797
+      spriteID: 570a59df2fdf36ae0800000000000000
+      internalID: -1557121826061705099
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HummingRockDash_1
+      name: HummingRockDirtExplosion_1
       rect:
         serializedVersion: 2
         x: 32
@@ -140,8 +170,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 129154df552881be0800000000000000
-      internalID: -1506310769522435807
+      spriteID: 572ab6f4d9a985520800000000000000
+      internalID: 2691070777786868341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HummingRockDirtExplosion_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15a7d428b5e239570800000000000000
+      internalID: 8472166294577052241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HummingRockDirtExplosion_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e45595438c224d880800000000000000
+      internalID: -8587200346221619890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HummingRockDirtExplosion_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13320d982c772bd60800000000000000
+      internalID: 7904511973408121649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HummingRockDirtExplosion_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6faf1df88f876710800000000000000
+      internalID: 1686474403998576495
       vertices: []
       indices: 
       edges: []
@@ -150,7 +268,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 35606a918c6ea864c9d893b24fceb5cf
     internalID: 0
     vertices: []
     indices: 
@@ -162,8 +280,12 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":32.0,"y":32.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      HummingRockDash_0: 4109465311249336797
-      HummingRockDash_1: -1506310769522435807
+      HummingRockDirtExplosion_0: -1557121826061705099
+      HummingRockDirtExplosion_1: 2691070777786868341
+      HummingRockDirtExplosion_2: 8472166294577052241
+      HummingRockDirtExplosion_3: -8587200346221619890
+      HummingRockDirtExplosion_4: 7904511973408121649
+      HummingRockDirtExplosion_5: 1686474403998576495
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
