@@ -264,6 +264,8 @@ public class HummingRock : MonoBehaviour, IEnemy, IGrowableEnemy
 
     private IEnumerator DirtCrash()
     {
+        var sprite = GetComponent<SpriteRenderer>();
+        sprite.sortingOrder = -3;
         dirtCrashing = true;
         enemyRig.linearVelocityX = 0;
         animator.SetTrigger("DirtCrash");
@@ -276,6 +278,7 @@ public class HummingRock : MonoBehaviour, IEnemy, IGrowableEnemy
             Camera.main.GetComponent<FollowPlayer>().ScreenShake(0.025f, 0.5f);
         }
         yield return new WaitForSeconds(1);
+        sprite.sortingOrder = 1;
         isDashing = false;
         dirtCrashing = false;
         cantGrow = false;
