@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.ComponentModel;
+using Unity.Mathematics;
 
 public class VineCrawler : MonoBehaviour, IEnemy, IGrowableEnemy
 {
@@ -42,6 +43,7 @@ public class VineCrawler : MonoBehaviour, IEnemy, IGrowableEnemy
     [SerializeField] private GameObject Bullet;
     [SerializeField] private float bulletSpeed = 2f;
     private Animator animator;
+    [SerializeField] private bool rightWall = false;
 
     private void Start()
     {
@@ -61,7 +63,13 @@ public class VineCrawler : MonoBehaviour, IEnemy, IGrowableEnemy
 
             if (normalDirection)
             {
-                spriteRenderer.flipX = true;
+                if (rightWall)
+                {
+                    spriteRenderer.flipX = false;
+                } else
+                {
+                    spriteRenderer.flipX = true;
+                }
                 crawlerRig.linearVelocityY = crawlSpeed;
                 if (distanceFromStart >= movedistance)
                 {
@@ -70,7 +78,14 @@ public class VineCrawler : MonoBehaviour, IEnemy, IGrowableEnemy
             }
             else
             {
-                spriteRenderer.flipX = false;
+                if (rightWall)
+                {
+                    spriteRenderer.flipX = true;
+                }
+                else
+                {
+                    spriteRenderer.flipX = false;
+                }
                 crawlerRig.linearVelocityY = -crawlSpeed;
                 if (distanceFromStart <= -movedistance)
                 {

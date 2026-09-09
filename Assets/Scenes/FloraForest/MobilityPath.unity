@@ -66382,6 +66382,7 @@ MonoBehaviour:
   bulletspawn: {fileID: 890417848}
   Bullet: {fileID: 1477931699}
   bulletSpeed: 2
+  rightWall: 0
 --- !u!95 &1327393350
 Animator:
   serializedVersion: 7
