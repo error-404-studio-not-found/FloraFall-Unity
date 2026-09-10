@@ -55385,6 +55385,7 @@ MonoBehaviour:
   - {fileID: 382061475}
   - {fileID: 666140101}
   - {fileID: 1467923298}
+  poppyHolder: {fileID: 1795213471}
   fullSpirit: {fileID: 4557482019120726719, guid: 89bbd22e5bbddee4aa0ba347b621c30e, type: 3}
   emptySpirit: {fileID: 21300000, guid: b5808a78fffbe2344b3eadcdddd5d27c, type: 3}
   maxSpirits: 5

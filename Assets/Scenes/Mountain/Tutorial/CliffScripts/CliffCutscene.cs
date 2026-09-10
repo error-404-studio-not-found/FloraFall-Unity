@@ -103,6 +103,13 @@ public class CliffCutscene : MonoBehaviour
         yield return new WaitForSeconds(2.5f);
         TransitionManager.Instance.transitions.SetTrigger("Start");
         yield return new WaitForSeconds(4f);
+        foreach (Animator animator in druidUI.healthAnimators)
+        {
+            animator.ResetTrigger("Appear");
+            animator.ResetTrigger("Die");
+        }
+        druidUI.poppyHolder.SetActive(true);
+        druidUI.health = druidUI.MaxHealth;
         saveText = GameObject.Find("SaveText").GetComponent<TextMeshProUGUI>();
         saveText.enabled = true;
         saveText.maxVisibleCharacters = 0;
@@ -131,7 +138,11 @@ public class CliffCutscene : MonoBehaviour
         druidUI.hitImmune = false;
         DruidFrameWork.inCutscene = false;
         inEndCutscene = false;
-        druidUI.health = 4;
+        foreach (Animator animator in druidUI.healthAnimators)
+        {
+            animator.ResetTrigger("Appear");
+            animator.ResetTrigger("Die");
+        }
         druidUI.spirits = 5;
         druidAnimator.SetTrigger("WakeUp");
         DruidFrameWork.canmove = true;

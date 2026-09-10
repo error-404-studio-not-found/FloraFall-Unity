@@ -11,6 +11,7 @@ public class DruidUI : MonoBehaviour, IDamageAble
     public Animator[] healthAnimators;
     public Image[] healthImage;
 
+    public GameObject poppyHolder;
     public Sprite fullSpirit;
     public Sprite emptySpirit;
     public int maxSpirits; //change to set max spirits max is 8
