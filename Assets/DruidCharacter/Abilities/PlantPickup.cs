@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using UnityEditor.Networking.PlayerConnection;
 using UnityEngine;
@@ -71,25 +72,27 @@ public class PlantPickup : MonoBehaviour
         //---- PLACING LOGIC ----
         if (placing)
         {
+            canPutDownPlant = true;
             var heldPlantSR = heldPlant.GetComponent<SpriteRenderer>();
-            Vector3 mousPos = Input.mousePosition;
+            var heldPlantCol = heldPlant.GetComponent<BoxCollider2D>();
 
-            RaycastHit2D snapDownCast = Physics2D.Raycast(new Vector2(cam.ScreenToWorldPoint(mousPos).x, (cam.ScreenToWorldPoint(mousPos).y + 100f)),
-              Vector2.down, 1000f, LayerMask.GetMask("Ground"));
+            Vector3 mousePos = Input.mousePosition;
+            Vector3 mouseWorldPos = cam.ScreenToWorldPoint(mousePos);
+
+            RaycastHit2D snapDownCast = Physics2D.Raycast(new Vector2(mouseWorldPos.x, transform.position.y), Vector2.down, 1000f, LayerMask.GetMask("Ground"));
+            RaycastHit2D downRightCast = Physics2D.Raycast(new Vector2(mouseWorldPos.x, transform.position.y) + new Vector2(1, 0.5f), Vector2.down, 5f, LayerMask.GetMask("Ground"));
+            RaycastHit2D downLeftCast = Physics2D.Raycast(new Vector2(mouseWorldPos.x, transform.position.y) + new Vector2(-1, 0.5f), Vector2.down, 5f, LayerMask.GetMask("Ground"));
+
+            Vector2 proposedPosition = snapDownCast.point + new Vector2(0, 0.6f);
+            Collider2D hit = Physics2D.OverlapBox(proposedPosition, heldPlantCol.bounds.size, 0f, LayerMask.GetMask("Ground"));
 
             if (snapDownCast)
             {
-                if (Vector2.Distance(snapDownCast.point, transform.position) < distance)
+                if (!hit && downRightCast && downLeftCast)
                 {
-                    canPutDownPlant = true;
                     heldPlantSR.color = new Color32(255, 255, 255, 150);
                     heldPlant.transform.position = snapDownCast.point + new Vector2(0, offset);
-                }
-                else
-                {
-                    canPutDownPlant = false;
-                    heldPlantSR.color = new Color32(255, 0, 0, 150);
-                }
+                } 
             }
 
             if (canPutDownPlant)
@@ -121,6 +124,7 @@ public class PlantPickup : MonoBehaviour
     {
         canPlace = false;
         heldPlant.transform.position = transform.position;
+        heldPlant.layer = LayerMask.NameToLayer("Default");
         Behaviour[] components = heldPlant.GetComponents<Behaviour>();
         foreach (Behaviour comp in components)
             comp.enabled = false;
@@ -129,6 +133,9 @@ public class PlantPickup : MonoBehaviour
         var heldPlantSR = heldPlant.GetComponent<SpriteRenderer>();
         heldPlantSR.enabled = true;
         heldPlantSR.color = new Color32(255, 0, 0, 100);
+
+        var heldPlantCollider = heldPlant.GetComponent<BoxCollider2D>();
+        heldPlantCollider.enabled = true;
         yield return null;
         placing = true;
     }
@@ -137,7 +144,7 @@ public class PlantPickup : MonoBehaviour
     {
         placing = false;
         canPlace = false;
- 
+        heldPlant.layer = LayerMask.NameToLayer("GrowPlants");
         canPutDownPlant = false;
         Behaviour[] components = heldPlant.GetComponents<Behaviour>();
         foreach (Behaviour comp in components)
