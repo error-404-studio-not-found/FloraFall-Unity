@@ -31,6 +31,7 @@ public class FollowPlayer : MonoBehaviour
 
     private Vector3 shakeOffset;
     private float shakeSeed;
+    [SerializeField] private float upAndDownOffset = 3;
 
     private void Start()
     {
