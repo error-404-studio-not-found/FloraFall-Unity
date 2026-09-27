@@ -56604,10 +56604,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
+    x: 0.13489585
     y: 0
-    width: 0.9998349
-    height: 1
+    width: 0.3027778
+    height: 0.30277777
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
@@ -56783,6 +56783,7 @@ MonoBehaviour:
   lookAheadOffset: 0.5
   offsetSmoothTime: 0.2
   canFollow: 1
+  upAndDownOffset: 3
 --- !u!114 &1496655843
 MonoBehaviour:
   m_ObjectHideFlags: 0
