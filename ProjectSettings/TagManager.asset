@@ -63,6 +63,7 @@ TagManager:
   - VineCrawler
   - ClimbingState
   - HummingRock
+  - Dirt
   layers:
   - Default
   - TransparentFX

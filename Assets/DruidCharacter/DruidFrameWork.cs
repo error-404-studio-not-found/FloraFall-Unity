@@ -216,6 +216,10 @@ public class DruidFrameWork : MonoBehaviour
                         {
                             ChangeParticleColours(new Color(255f, 255f, 255f));
                         }
+                        else if (groundTag.collider.gameObject.CompareTag("Dirt"))
+                        {
+                            ChangeParticleColours(new Color(150f, 75f, 0f));
+                        }
                     }
                 }
                 //---- CLIMBING ----
