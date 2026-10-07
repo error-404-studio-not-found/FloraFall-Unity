@@ -155,7 +155,7 @@ public class HummingRock : MonoBehaviour, IEnemy, IGrowableEnemy
             {
                 StartCoroutine(PlayerSpotted());
             }
-            else if (distance > playerDetectionDistance)
+            if (playerInSight && distance > deActivationDistance)
             {
                 playerInSight = false;
             }
@@ -261,7 +261,7 @@ public class HummingRock : MonoBehaviour, IEnemy, IGrowableEnemy
         isDashing = false;
         animator.SetTrigger("StopDash");
         enemyRig.linearVelocityX = 0;
-        yield return new WaitForSeconds(Random.Range(2, 5));
+        yield return new WaitForSeconds(Random.Range(1, 3));
         dashCD = false;
         cantGrow = false;
     }
@@ -286,7 +286,7 @@ public class HummingRock : MonoBehaviour, IEnemy, IGrowableEnemy
         isDashing = false;
         dirtCrashing = false;
         cantGrow = false;
-        yield return new WaitForSeconds(Random.Range(2, 5));
+        yield return new WaitForSeconds(Random.Range(1, 4));
         dashCD = false;
     }
 
@@ -297,6 +297,7 @@ public class HummingRock : MonoBehaviour, IEnemy, IGrowableEnemy
         animator.SetTrigger("SpotPlayer");
         yield return new WaitForSeconds(0.5f);
         playerInSight = true;
+        telegraphing = false;
     }
 
     private IEnumerator Dash()
