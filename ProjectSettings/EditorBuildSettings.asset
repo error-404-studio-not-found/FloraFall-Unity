@@ -51,6 +51,9 @@ EditorBuildSettings:
     path: Assets/Scenes/FloraForest/HostilePath.unity
     guid: 6b257dfd8f6123a428ed678f295996e6
   - enabled: 1
+    path: Assets/Scenes/RootCaverns/FloraForestEntranceConnector.unity
+    guid: 83919820c3c57e54392ba695e741bd93
+  - enabled: 1
     path: Assets/Scenes/FloraForest/LargeOpening.unity
     guid: 0300e4ab01589344d8deeb63423393e6
   m_configObjects:

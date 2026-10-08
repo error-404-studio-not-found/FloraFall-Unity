@@ -218,7 +218,7 @@ public class DruidFrameWork : MonoBehaviour
                         }
                         else if (groundTag.collider.gameObject.CompareTag("Dirt"))
                         {
-                            ChangeParticleColours(new Color(150f, 75f, 0f));
+                            ChangeParticleColours(new Color(33f, 24f, 13f));
                         }
                     }
                 }
