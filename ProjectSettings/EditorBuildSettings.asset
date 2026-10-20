@@ -56,6 +56,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FloraForest/LargeOpening.unity
     guid: 0300e4ab01589344d8deeb63423393e6
+  - enabled: 1
+    path: Assets/Scenes/FloraForest/TheUndergrowthConnector.unity
+    guid: 730eedd3704adad469a0457b50da93df
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
