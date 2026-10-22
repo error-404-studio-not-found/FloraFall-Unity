@@ -64,6 +64,7 @@ TagManager:
   - ClimbingState
   - HummingRock
   - Dirt
+  - WoodBridge
   layers:
   - Default
   - TransparentFX
