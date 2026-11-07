@@ -15304,6 +15304,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  arcHeight: 5
 --- !u!199 &1255325001
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -31326,6 +31327,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  arcHeight: 5
 --- !u!199 &1724448522
 ParticleSystemRenderer:
   serializedVersion: 6
