@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GlowRootSmall
+  m_Name: GlowRootUngrown
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,7 +21,7 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -509478884892765688, guid: 43fd8928290903a4bb06fab7ef921c63, type: 3}
+      value: {fileID: 7325718293129736818, guid: 7828a359939246243b35805aff55c571, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -44,7 +44,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: -509478884892765688, guid: 43fd8928290903a4bb06fab7ef921c63, type: 3}
+    - {fileID: 7325718293129736818, guid: 7828a359939246243b35805aff55c571, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

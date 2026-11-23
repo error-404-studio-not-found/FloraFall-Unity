@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class GlowRootPlant : MonoBehaviour, IGrowablePlant
 {
@@ -18,6 +19,7 @@ public class GlowRootPlant : MonoBehaviour, IGrowablePlant
     public bool CanGrow => canGrow;
     public bool IsGrown => glowdb;
     public bool CanDie => candie;
+    [SerializeField] private Light2D light;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
@@ -49,7 +51,8 @@ public class GlowRootPlant : MonoBehaviour, IGrowablePlant
         animator.SetTrigger("Grow");
         glowdb = true;
         canGrow = false;
-        yield return new WaitForSeconds(0.75f);
+        yield return new WaitForSeconds(0.3f);
+        light.enabled = true;
         canGrow = true;
         candie = true;
     }
@@ -59,9 +62,9 @@ public class GlowRootPlant : MonoBehaviour, IGrowablePlant
         candie = false;
         animator.SetTrigger("Die");
         canGrow = false;
-        yield return new WaitForSeconds(3f);
+        light.enabled = false;
+        yield return new WaitForSeconds(1.5f);
         canGrow = true;
-        animator.SetTrigger("dbdone");
         glowdb = false;
     }
 }

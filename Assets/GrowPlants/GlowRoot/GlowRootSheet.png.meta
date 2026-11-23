@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 351c7be08cd454040af4265709be26e6
+guid: 7828a359939246243b35805aff55c571
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2640171208459839532
-    second: GlowRootSmall_0
+      213: 7325718293129736818
+    second: GlowRootSheet_0
+  - first:
+      213: -9029018901578898945
+    second: GlowRootSheet_1
+  - first:
+      213: 9065861614828936994
+    second: GlowRootSheet_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -72,7 +78,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 32
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -96,40 +102,71 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GlowRootSmall_0
+      name: GlowRootSheet_0
       rect:
         serializedVersion: 2
-        x: 8
+        x: 0
         y: 0
-        width: 15
-        height: 7
+        width: 32
+        height: 32
       alignment: 9
-      pivot: {x: 0.49061242, y: 0.5000004}
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c286672d9b5c3a420800000000000000
-      internalID: 2640171208459839532
+      spriteID: 272349a69fd2aa560800000000000000
+      internalID: 7325718293129736818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GlowRootSheet_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff12a15952b72b280800000000000000
+      internalID: -9029018901578898945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GlowRootSheet_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22f5abe0b1960dd70800000000000000
+      internalID: 9065861614828936994
       vertices: []
       indices: 
       edges: []
@@ -138,7 +175,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 06308a93b6f358a4d84b3b98cd6bf45e
+    spriteID: 98937c7ea5106bf468a59bc2051fe5b7
     internalID: 0
     vertices: []
     indices: 
@@ -146,9 +183,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":32.0,"y":32.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.10000000149011612},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":9,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      GlowRootSmall_0: 2640171208459839532
+      GlowRootSheet_0: 7325718293129736818
+      GlowRootSheet_1: -9029018901578898945
+      GlowRootSheet_2: 9065861614828936994
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

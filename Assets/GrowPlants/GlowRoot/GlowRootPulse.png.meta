@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 43fd8928290903a4bb06fab7ef921c63
+guid: 93ba5cc6c2d6c7a48a7f3b10b3e017fd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -509478884892765688
-    second: GlowRoot_0
+      213: -1767324859799522627
+    second: GlowRootPulse_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,11 +46,11 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 0
-  spritePivot: {x: 0.5, y: 0.5}
+  alignment: 9
+  spritePivot: {x: 0.5, y: 0.1}
   spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -96,40 +96,27 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GlowRoot_0
+      name: GlowRootPulse_0
       rect:
         serializedVersion: 2
-        x: 3
+        x: 0
         y: 0
-        width: 22
-        height: 11
-      alignment: 9
-      pivot: {x: 0.5736074, y: 0.30158025}
+        width: 32
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 802976d47a7fde8f0800000000000000
-      internalID: -509478884892765688
+      spriteID: db2bee857633977e0800000000000000
+      internalID: -1767324859799522627
       vertices: []
       indices: 
       edges: []
@@ -138,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: dafdc34e73d6fa54da8ec7edc67d4e84
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      GlowRoot_0: -509478884892765688
+      GlowRootPulse_0: -1767324859799522627
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
